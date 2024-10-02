@@ -14,13 +14,13 @@ public class VehiclePojo {
 
 	private long vehicleId;
 	private String name;
-	private String regNno;
+	private String regNo;
 	private int wheelCount;
 	private String type;
 	private String location;
 	private String pincode;
 	private String description;
-	private double pricePerHour;
+	private double pricePerHr;
 
 	
 	private VendorPojo vendor;

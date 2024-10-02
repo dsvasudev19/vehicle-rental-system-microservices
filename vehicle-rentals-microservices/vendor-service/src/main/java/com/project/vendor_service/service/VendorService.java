@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.vendor_service.entity.Vendor;
+import com.project.vendor_service.feign.VehicleClient;
+import com.project.vendor_service.models.VehiclePojo;
 import com.project.vendor_service.models.VendorPojo;
 import com.project.vendor_service.repository.VendorRepository;
 
@@ -17,6 +19,7 @@ public class VendorService {
 	@Autowired
 	private VendorRepository vendorRepository;
 
+	
 	public List<VendorPojo> getAllVendors() {
 		List<Vendor> vendorsFound = vendorRepository.findAll();
 		List<VendorPojo> vendors = new ArrayList<>();
@@ -31,8 +34,10 @@ public class VendorService {
 	public VendorPojo getVendorById(long id) {
 		Optional<Vendor> vendorFound = vendorRepository.findById(id);
 		if (vendorFound.isPresent()) {
+			
 			VendorPojo vendor = new VendorPojo();
 			BeanUtils.copyProperties(vendorFound.get(), vendor);
+			
 			return vendor;
 		}
 		return null;

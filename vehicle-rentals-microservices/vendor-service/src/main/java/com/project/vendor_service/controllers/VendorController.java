@@ -1,5 +1,7 @@
 package com.project.vendor_service.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.vendor_service.feign.VehicleClient;
+import com.project.vendor_service.models.VehiclePojo;
 import com.project.vendor_service.models.VendorPojo;
 import com.project.vendor_service.service.VendorService;
 
@@ -20,6 +24,9 @@ import com.project.vendor_service.service.VendorService;
 public class VendorController {
 	@Autowired
 	private VendorService vendorService;
+	
+	@Autowired
+	private VehicleClient vehicleClient;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllVendors(){
@@ -30,6 +37,8 @@ public class VendorController {
 	public ResponseEntity<?> getVendorById(@PathVariable long id){
 		VendorPojo vendorFound=vendorService.getVendorById(id);
 		if(vendorFound!=null) {
+			List<VehiclePojo> vehiclesOfVendor=vehicleClient.getAllVehiclesByVendorId(id);
+			vendorFound.setVehicles(vehiclesOfVendor);
 			return new ResponseEntity<>(vendorFound,HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();

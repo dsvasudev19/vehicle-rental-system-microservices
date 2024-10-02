@@ -42,7 +42,7 @@ public class BookingController {
 		return new ResponseEntity<BookingPojo>(bookingPojo,HttpStatus.OK);
 	}
 	
-	@GetMapping("users/vehicle/{id}")
+	@GetMapping("/vehicle/{id}")
 	public ResponseEntity<BookingPojo>getBookingByVehicleId(@PathVariable ("id")long vehicleId){
 		BookingPojo bookingPojo=bookingService.getBookingByVehicleId(vehicleId);
 		return new ResponseEntity<BookingPojo>(bookingPojo,HttpStatus.OK);
@@ -61,7 +61,7 @@ public class BookingController {
 		return new ResponseEntity<BookingPojo>(pojo,HttpStatus.OK);
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{bookingId}")
 	public ResponseEntity<?>deleteBooking(long bookingId){
 		bookingService.deleteBooking(bookingId);
 		return new ResponseEntity<>(HttpStatus.OK);

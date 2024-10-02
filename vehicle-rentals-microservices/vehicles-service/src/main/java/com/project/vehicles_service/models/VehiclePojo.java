@@ -16,7 +16,7 @@ public class VehiclePojo {
 
 	private long vehicleId;
 	private String name;
-	private String regNno;
+	private String regNo;
 	private int wheelCount;
 	private String type;
 	private String location;

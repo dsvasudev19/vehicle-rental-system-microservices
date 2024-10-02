@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 
 public class VendorPojo {
-	private long vendor_id;
+	private long vendorId;
 	private String name;
 	private String email;
 	private String password;

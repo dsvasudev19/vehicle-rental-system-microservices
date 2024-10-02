@@ -1,7 +1,10 @@
-package com.project.vendor_service.models;
+package com.project.vehicles_service.models;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.data.annotation.Id;
+
 
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -12,17 +15,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 
-
-public class VendorPojo {
-	private long vendorId;
+public class UserPojo {
+	private long userId;
 	private String name;
 	private String email;
-	private String password;
 	private String phone;
 	private LocalDateTime createdAt;
-	private LocalDateTime updateAt;
-	private LocalDateTime deletedAt;
+	
+	@OneToMany(mappedBy = "user")
+	private List<BookingPojo> bookings;
 	
 	
-	private List<VehiclePojo> vehicles;
 }
