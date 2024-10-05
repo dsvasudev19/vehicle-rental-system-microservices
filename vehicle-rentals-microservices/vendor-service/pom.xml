@@ -109,6 +109,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>vendor-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
