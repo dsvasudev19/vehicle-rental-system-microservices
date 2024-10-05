@@ -115,6 +115,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>vehicles-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>

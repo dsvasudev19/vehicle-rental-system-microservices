@@ -1,6 +1,5 @@
 FROM maven as build 
 
-
 COPY . .
 
 RUN mvn clean package -Dskiptests

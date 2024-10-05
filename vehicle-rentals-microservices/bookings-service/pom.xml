@@ -102,6 +102,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>bookings-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
