@@ -16,7 +16,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-	private static final String SECRET = "&*$(#$@%GJERG*$%#($%#$KERGER*#$%#$(%#$%#$TK#GI$TU&#$*%@#$(@#KR$T(#*#T%ij!";
+	private static final String SECRET = "ADFLAKSDLFADSJASDFKLJASDFJALSJDKFKSDLFJASDKFJJKAHSDFKHASDKFHLSHDFKJHASDKJF";
 
 	public void validateToken(String token) {
 		Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);

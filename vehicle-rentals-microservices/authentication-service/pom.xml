@@ -96,6 +96,7 @@
 			<version>0.11.5</version>
 			<scope>runtime</scope>
 		</dependency>
+		
 
 	</dependencies>
 	<dependencyManagement>
@@ -111,6 +112,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>authentication-service</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

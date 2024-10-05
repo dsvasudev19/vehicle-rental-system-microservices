@@ -21,7 +21,7 @@ import com.project.user_service.service.UserService;
 
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 	
 	

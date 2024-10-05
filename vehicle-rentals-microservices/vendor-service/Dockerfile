@@ -1,12 +1,17 @@
-FROM maven as build
+# FROM maven as build 
 
-COPY . .
+# COPY . .
 
-RUN mvn clean package -Dskiptests
-
-FROM openjdk:17-oracle 
+# RUN mvn clean package -DskipTests
 
 
-COPY --from=build ./target/vendor-service.jar vendor-service.jar
 
-ENTRYPOINT ["java","-jar","vendor-service.jar"]
+FROM openjdk:17-oracle
+
+
+# ENTRYPOINT ["java","-jar","vendor-service.jar"]
+
+
+COPY ./target/vendor-service.jar vendor-service.jar
+
+CMD ["java","-jar","vendor-service.jar"]
