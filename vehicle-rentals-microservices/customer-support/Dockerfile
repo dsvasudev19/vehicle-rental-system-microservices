@@ -1,12 +1,12 @@
-FROM maven as build 
+# FROM maven as build 
 
-COPY . .
+# COPY . .
 
-RUN mvn clean package -Dskiptests
+# RUN mvn clean package -DskipTests
 
 FROM openjdk:17-oracle
 
 
-COPY --from=build ./target/customer-support.jar customer-support.jar
+COPY ./target/customer-support.jar customer-support.jar
 
 CMD ["java","-jar","customer-support.jar"]

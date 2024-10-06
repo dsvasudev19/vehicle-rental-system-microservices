@@ -1,12 +1,12 @@
-FROM maven as build 
+# FROM maven as build 
 
-COPY . .
+# COPY . .
 
-RUN mvn clean package -Dskiptests
+# RUN mvn clean package -DskipTests
 
 FROM openjdk:17-oracle
 
 
-COPY --from=build ./target/config-server.jar config-server.jar
+COPY ./target/config-server.jar config-server.jar
 
 CMD ["java","-jar","config-server.jar"]

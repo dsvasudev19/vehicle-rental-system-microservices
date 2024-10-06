@@ -1,13 +1,13 @@
-FROM maven as build 
+# FROM maven as build 
 
-COPY . .
+# COPY . .
 
-RUN mvn clean package -Dskiptests
+# RUN mvn clean package -DskipTests
 
 FROM openjdk:17-oracle
 
 
 
-COPY --from=build ./target/user-service.jar user-service.jar
+COPY ./target/user-service.jar user-service.jar
 
 CMD ["java","-jar","user-service.jar"]

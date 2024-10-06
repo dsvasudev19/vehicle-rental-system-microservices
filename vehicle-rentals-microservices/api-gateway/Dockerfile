@@ -1,12 +1,12 @@
-FROM maven as build 
+# FROM maven as build 
 
-COPY . .
+# COPY . .
 
-RUN mvn clean package -Dskiptests
+# RUN mvn clean package -DskipTests
 
 FROM openjdk:17-oracle
 
 
-COPY --from=build ./target/api-gateway.jar api-gateway.jar
+COPY ./target/api-gateway.jar api-gateway.jar
 
 CMD ["java","-jar","api-gateway.jar"]

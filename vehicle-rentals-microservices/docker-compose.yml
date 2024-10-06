@@ -1,0 +1,235 @@
+# services:
+#   service-registry:
+#     build:
+#       context: ./service-registry
+#     ports:
+#       - "8761:8761"
+#     networks:
+#       - vehicle-rental
+
+#   config-server:
+#     build:
+#       context: ./config-server
+#       dockerfile: Dockerfile
+#     container_name: config-server
+#     ports:
+#       - "8088:8088"
+#     networks:
+#       - vehicle-rental
+
+#   vendor-service:
+#     build:
+#       context: ./vendor-service
+#       dockerfile: Dockerfile
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/vendor-service
+#       SPRING_DATASOURCE_USERNAME: user
+#       SPRING_DATASOURCE_PASSWORD: 0000
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+#     depends_on:
+#       - postgres_db
+#       - config-server
+#     ports:
+#       - "8091:8091"
+#     networks:
+#       - vehicle-rental
+
+#   # PostgreSQL Database Service
+#   postgres_db:
+#     image: postgres:15
+#     container_name: postgres_db
+#     environment:
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: 0000
+#       POSTGRES_DB: vendor-service
+#     ports:
+#       - "5432:5432"
+#     networks:
+#       - vehicle-rental
+#     # command: >
+#     #   bash -c "postgres -c listen_addresses='*' &
+#     #   sleep 5 &&
+#     #   psql -U root -c 'CREATE DATABASE vehicles-service;' &&
+#     #   psql -U root -c 'CREATE DATABASE vendor-service;' &&
+#     #   psql -U root -c \"CREATE USER admin WITH PASSWORD '0000';\" &&
+#     #   psql -U root -c 'GRANT ALL PRIVILEGES ON DATABASE vendor-service TO user;' &&
+#     #   fg"
+
+# networks:
+#   vehicle-rental:
+#     driver: bridge
+
+# volumes:
+#   postgres_data:
+
+version: "3.8"
+
+services:
+  # Service Registry
+  service-registry:
+    image: service-registry
+    container_name: service-registry
+    build:
+      context: ./service-registry
+    ports:
+      - "8761:8761"
+    networks:
+      - vehicle-rental
+
+  # Configuration Server
+  config-server:
+    image: config-server
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    depends_on:
+      - service-registry
+    ports:
+      - "8088:8088"
+    networks:
+      - vehicle-rental
+
+  # Vendor Service
+  vendor-service:
+    image: vendor-service
+    container_name: vendor-service
+    build:
+      context: ./vendor-service
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/vendor-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8091:8091"
+    networks:
+      - vehicle-rental
+
+  # Authentication Service
+  authentication-service:
+    image: authentication-service
+    container_name: authentication-service
+    build:
+      context: ./authentication-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/authentication-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "9099:9099"
+    networks:
+      - vehicle-rental
+
+  # Vehicles Service
+  vehicles-service:
+    image: vehicles-service
+    container_name: vehicles-service
+    build:
+      context: ./vehicles-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/vehicles-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8092:8092"
+    networks:
+      - vehicle-rental
+
+  # User Service
+  user-service:
+    image: user-service
+    container_name: user-service
+    build:
+      context: ./user-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/user-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "9848:9848"
+    networks:
+      - vehicle-rental
+
+  # Bookings Service
+  bookings-service:
+    image: bookings-service
+    container_name: bookings-service
+    build:
+      context: ./bookings-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/bookings-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "9595:9595"
+    networks:
+      - vehicle-rental
+
+  # Customer Support Service
+  customer-support:
+    image: customer-support
+    container_name: customer-support
+    build:
+      context: ./customer-support
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/customer-support
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8090:8090"
+    networks:
+      - vehicle-rental
+
+  # PostgreSQL Database Service
+  postgres_db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: postgres # Default database
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persistent storage
+      - ./create-databases.sql:/docker-entrypoint-initdb.d/create-databases.sql # Mount the SQL script
+    networks:
+      - vehicle-rental
+
+networks:
+  vehicle-rental:
+    driver: bridge
+
+volumes:
+  postgres_data:

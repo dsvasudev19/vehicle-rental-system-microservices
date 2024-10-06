@@ -15,7 +15,7 @@ import lombok.SneakyThrows;
 public class WebConfig {
 	@Bean
 	public WebClient webClient(ObjectMapper objectMapper) {
-		return WebClient.builder().baseUrl("http://localhost:9000/").build();
+		return WebClient.builder().baseUrl("http://api-gateway:9000/").build();
 	}
 
 	@SneakyThrows
