@@ -1,5 +1,7 @@
 package com.project.coupon_service.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -15,5 +17,11 @@ import lombok.NoArgsConstructor;
 public class Coupon {
 	@Id
 	private long id;
+	private String code;
+	private String type;
+	private double discount;
+	private double minPurchaseValue;
+	private double maxDiscountValue;
+	private LocalDateTime expiryDate;
 	
 }

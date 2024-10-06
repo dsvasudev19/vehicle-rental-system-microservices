@@ -39,8 +39,7 @@ public class VehicleController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getVehicleById(@PathVariable long id) {
 		VehiclePojo vehicle = vehicleService.getVehicleById(id);
-		bookingClient.getAllBookingsOfVehicle(id)
-				.subscribe(data ->System.out.println(data));
+		
 		
 		if (vehicle != null) {
 			return new ResponseEntity<>(vehicle, HttpStatus.OK);

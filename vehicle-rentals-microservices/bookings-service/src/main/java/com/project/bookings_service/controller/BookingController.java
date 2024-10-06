@@ -18,7 +18,7 @@ import com.project.bookings_service.model.BookingPojo;
 import com.project.bookings_service.service.BookingService;
 
 @RestController
-@RequestMapping("/api/bookings")
+@RequestMapping("/bookings")
 public class BookingController {
 	
 	@Autowired
