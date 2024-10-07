@@ -24,6 +24,11 @@ public class BookingController {
 	@Autowired
 	BookingService bookingService;
 	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From Booking Service..............";
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<BookingPojo>> getAllBookings(){
 		List<BookingPojo> bookingPojos=bookingService.getAllBookings();

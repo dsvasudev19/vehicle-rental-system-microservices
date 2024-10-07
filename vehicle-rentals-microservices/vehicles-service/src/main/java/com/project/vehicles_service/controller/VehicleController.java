@@ -30,6 +30,11 @@ public class VehicleController {
 
 	@Autowired
 	private BookingClient bookingClient;
+	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From Vehicle Service..............";
+	}
 
 	@GetMapping
 	public ResponseEntity<?> getAllVehicles() {

@@ -21,6 +21,11 @@ import com.project.customer_support.service.CustomerSupportService;
 public class CustomerSupportController {
 	@Autowired
 	private CustomerSupportService supportService;
+	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From Customer Support Service..............";
+	}
 
 	@GetMapping("/enquiries")
 	public ResponseEntity<List<CustomerSupport>> getAllEnquiries() {

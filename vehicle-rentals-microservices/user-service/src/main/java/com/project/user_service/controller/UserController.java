@@ -28,6 +28,11 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From User Service..............";
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<UserPojo>> getAllUsers(){
 		List<UserPojo> usersList=userService.getAllUsers();

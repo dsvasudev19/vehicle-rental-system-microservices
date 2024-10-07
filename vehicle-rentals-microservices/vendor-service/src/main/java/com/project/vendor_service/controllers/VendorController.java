@@ -28,6 +28,11 @@ public class VendorController {
 	@Autowired
 	private VehicleClient vehicleClient;
 	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From Vendor Service..............";
+	}
+	
 	@GetMapping
 	public ResponseEntity<?> getAllVendors(){
 		return new ResponseEntity<>(vendorService.getAllVendors(),HttpStatus.OK);

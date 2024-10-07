@@ -25,6 +25,11 @@ public class UserCredentialController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@GetMapping("/greet")
+	public String greet() {
+		return "Hello! From Authentication Service..............";
+	}
+	
 	
 	@PostMapping("/user/register")
 	public ResponseEntity<?> registerNewUser(@RequestBody UserCredential user){
