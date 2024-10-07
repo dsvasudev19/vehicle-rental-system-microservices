@@ -82,9 +82,6 @@ services:
     container_name: config-server
     build:
       context: ./config-server
-      dockerfile: Dockerfile
-    depends_on:
-      - service-registry
     ports:
       - "8088:8088"
     networks:
@@ -204,6 +201,54 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
       - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8090:8090"
+    networks:
+      - vehicle-rental
+  review-service:
+    image: review-service
+    container_name: review-service
+    build:
+      context: ./review-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/review-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8090:8090"
+    networks:
+      - vehicle-rental
+  coupon-service:
+    image: coupon-service
+    container_name: coupon-service
+    build:
+      context: ./coupon-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/coupon-service
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres_db
+      - service-registry
+      - config-server
+    ports:
+      - "8090:8090"
+    networks:
+      - vehicle-rental
+  api-gateway:
+    image: api-gateway
+    container_name: api-gateway
+    build:
+      context: ./api-gateway
+    depends_on:
       - service-registry
       - config-server
     ports:

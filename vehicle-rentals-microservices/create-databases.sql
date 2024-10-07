@@ -10,3 +10,7 @@ CREATE DATABASE "user-service";
 CREATE DATABASE "bookings-service";
 
 CREATE DATABASE "customer-support";
+
+CREATE DATABASE "review-service";
+
+CREATE DATABASE "coupon-service";
