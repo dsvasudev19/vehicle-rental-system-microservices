@@ -1,67 +1,3 @@
-# services:
-#   service-registry:
-#     build:
-#       context: ./service-registry
-#     ports:
-#       - "8761:8761"
-#     networks:
-#       - vehicle-rental
-
-#   config-server:
-#     build:
-#       context: ./config-server
-#       dockerfile: Dockerfile
-#     container_name: config-server
-#     ports:
-#       - "8088:8088"
-#     networks:
-#       - vehicle-rental
-
-#   vendor-service:
-#     build:
-#       context: ./vendor-service
-#       dockerfile: Dockerfile
-#     environment:
-#       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/vendor-service
-#       SPRING_DATASOURCE_USERNAME: user
-#       SPRING_DATASOURCE_PASSWORD: 0000
-#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-#     depends_on:
-#       - postgres_db
-#       - config-server
-#     ports:
-#       - "8091:8091"
-#     networks:
-#       - vehicle-rental
-
-#   # PostgreSQL Database Service
-#   postgres_db:
-#     image: postgres:15
-#     container_name: postgres_db
-#     environment:
-#       POSTGRES_USER: user
-#       POSTGRES_PASSWORD: 0000
-#       POSTGRES_DB: vendor-service
-#     ports:
-#       - "5432:5432"
-#     networks:
-#       - vehicle-rental
-#     # command: >
-#     #   bash -c "postgres -c listen_addresses='*' &
-#     #   sleep 5 &&
-#     #   psql -U root -c 'CREATE DATABASE vehicles-service;' &&
-#     #   psql -U root -c 'CREATE DATABASE vendor-service;' &&
-#     #   psql -U root -c \"CREATE USER admin WITH PASSWORD '0000';\" &&
-#     #   psql -U root -c 'GRANT ALL PRIVILEGES ON DATABASE vendor-service TO user;' &&
-#     #   fg"
-
-# networks:
-#   vehicle-rental:
-#     driver: bridge
-
-# volumes:
-#   postgres_data:
-
 version: "3.8"
 
 services:
@@ -222,9 +158,10 @@ services:
       - service-registry
       - config-server
     ports:
-      - "8090:8090"
+      - "9096:9096"
     networks:
       - vehicle-rental
+
   coupon-service:
     image: coupon-service
     container_name: coupon-service
@@ -240,7 +177,7 @@ services:
       - service-registry
       - config-server
     ports:
-      - "8090:8090"
+      - "9097:9097"
     networks:
       - vehicle-rental
   api-gateway:
@@ -252,7 +189,7 @@ services:
       - service-registry
       - config-server
     ports:
-      - "8090:8090"
+      - "9000:9000"
     networks:
       - vehicle-rental
 

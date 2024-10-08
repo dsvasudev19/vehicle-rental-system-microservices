@@ -1,8 +1,6 @@
-# FROM maven as build 
-
-# COPY . .
-
-# RUN mvn clean package -DskipTests
+FROM maven AS build 
+COPY . .
+RUN mvn clean package -DskipTests
 
 
 

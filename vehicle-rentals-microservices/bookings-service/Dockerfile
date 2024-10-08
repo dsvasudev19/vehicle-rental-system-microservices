@@ -1,8 +1,10 @@
-# FROM maven as build 
+FROM maven AS build 
 
-# COPY . .
+COPY . .
 
-# RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests
+
+
 
 FROM openjdk:17-oracle
 
