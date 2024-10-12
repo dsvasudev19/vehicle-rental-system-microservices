@@ -143,13 +143,15 @@ services:
       - "8090:8090"
     networks:
       - vehicle-rental
+
+
   review-service:
     image: review-service
     container_name: review-service
     build:
       context: ./review-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/review-service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/reviews-service
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -168,7 +170,7 @@ services:
     build:
       context: ./coupon-service
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/coupon-service
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/coupons-service
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: rootpassword
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -190,6 +192,18 @@ services:
       - config-server
     ports:
       - "9000:9000"
+    networks:
+      - vehicle-rental
+  mail-service:
+    image: mail-service
+    container_name: mail-service
+    build:
+      context: ./mail-service
+    depends_on:
+      - service-registry
+      - config-server
+    ports:
+      - "9098:9098"
     networks:
       - vehicle-rental
 

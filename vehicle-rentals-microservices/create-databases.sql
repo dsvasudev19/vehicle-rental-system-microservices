@@ -1,4 +1,4 @@
--- Create databases and users for all microservices
+
 CREATE DATABASE "vendor-service";
 
 CREATE DATABASE "authentication-service";
@@ -11,6 +11,6 @@ CREATE DATABASE "bookings-service";
 
 CREATE DATABASE "customer-support";
 
-CREATE DATABASE "review-service";
+CREATE DATABASE "reviews-service";
 
-CREATE DATABASE "coupon-service";
+CREATE DATABASE "coupons-service";

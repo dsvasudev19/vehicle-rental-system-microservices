@@ -5,9 +5,6 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 
-
-
-
 FROM openjdk:17-oracle
 
 
