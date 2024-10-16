@@ -1,5 +1,6 @@
 package com.project.coupon_service.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.hibernate.id.insert.InsertReturningDelegate;
@@ -51,7 +52,10 @@ public class CouponService {
 	public Coupon findCouponByCode(String code) {
 		Optional<Coupon> couponFound = couponRepository.findByCode(code);
 		if (couponFound.isPresent()) {
-			return couponFound.get();
+			Coupon couponRetrieved=couponFound.get();
+			if(LocalDateTime.now().isBefore(couponRetrieved.getExpiryDate())) {				
+				return couponFound.get();
+			}
 		}
 		return null;
 	}

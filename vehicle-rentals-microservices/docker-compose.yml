@@ -254,7 +254,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   # Vendor Service
   vendor-service:
@@ -277,7 +277,8 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+
+      - postgres_data: /var/lib/postgresql/data
 
   # Authentication Service
   authentication-service:
@@ -299,7 +300,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   # Vehicles Service
   vehicles-service:
@@ -321,7 +322,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   # User Service
   user-service:
@@ -343,7 +344,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   # Bookings Service
   bookings-service:
@@ -365,7 +366,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   # Customer Support Service
   customer-support:
@@ -387,7 +388,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
   review-service:
     image: review-service
     container_name: review-service
@@ -407,7 +408,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
 
   coupon-service:
     image: coupon-service
@@ -428,7 +429,7 @@ services:
     networks:
       - vehicle-rental
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
   api-gateway:
     image: api-gateway
     container_name: api-gateway
@@ -441,8 +442,25 @@ services:
       - "9000:9000"
     networks:
       - vehicle-rental
+    
 	volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data: /var/lib/postgresql/data
+      
+  payment-service:
+    image: payment-service
+    container_name: payment-service
+    build:
+      context: ./payment-service
+    depends_on:
+      - service-registry
+      - postgres_db
+      - config-server
+    ports:
+      - "9097:9097"
+    networks:
+      - vehicle-rental
+    volumes:
+      - postgres_data: /var/lib/postgresql/data
 
   # PostgreSQL Database Service
   postgres_db:
