@@ -218,7 +218,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Persistent storage
+      - vehicles_data:/var/lib/postgresql/data # Persistent storage
       - ./create-databases.sql:/docker-entrypoint-initdb.d/create-databases.sql # Mount the SQL script
     networks:
       - vehicle-rental
@@ -228,4 +228,5 @@ networks:
     driver: bridge
 
 volumes:
+  vehicles_data:
   postgres_data:

@@ -7,6 +7,6 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-oracle
 
 
-COPY ./target/config-server.jar config-server.jar
+COPY --from=build ./target/config-server.jar config-server.jar
 
 CMD ["java","-jar","config-server.jar"]
