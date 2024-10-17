@@ -430,6 +430,8 @@ services:
   api-gateway:
     image: api-gateway
     container_name: api-gateway
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
     build:
       context: ./api-gateway
     depends_on:
@@ -457,9 +459,24 @@ services:
       - postgres_db
       - config-server
     ports:
-      - "9097:9097"
+      - "9696:9696"
     networks:
       - vehicle-rental
+  mail-service:
+    image: mail-service
+    container_name: mail-service
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    build:
+      context: ./mail-service
+    depends_on:
+      - service-registry
+      - config-server
+    ports:
+      - "9098:9098"
+    networks:
+      - vehicle-rental
+      
 
 
   # PostgreSQL Database Service
