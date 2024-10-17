@@ -1,5 +1,6 @@
 package com.project.authentication_service.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.authentication_service.entity.UserCredential;
+import com.project.authentication_service.models.UserCredentialPojo;
 import com.project.authentication_service.repository.UserCredentialRepository;
 
 @Service
@@ -23,10 +25,14 @@ public class UserCredentialService {
 	@Autowired
 	private UserCredentialRepository userRepository;
 
-	public UserCredential registerNewUser(UserCredential user) {
+	public UserCredentialPojo registerNewUser(UserCredentialPojo userCredential) {
+		UserCredential user=new UserCredential();
+		BeanUtils.copyProperties(userCredential, user);
 		userRepository.save(user);
 		user.setPassword(null);
-		return user;
+		UserCredentialPojo pojo=new UserCredentialPojo();
+		BeanUtils.copyProperties(user, pojo);
+		return pojo;
 	}
 	
 	public String validateUser(UserCredential user) {

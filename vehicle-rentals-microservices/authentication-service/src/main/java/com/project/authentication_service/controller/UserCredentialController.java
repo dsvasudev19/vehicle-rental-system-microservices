@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.authentication_service.entity.UserCredential;
+import com.project.authentication_service.models.UserCredentialPojo;
 import com.project.authentication_service.service.JwtService;
 import com.project.authentication_service.service.UserCredentialService;
 
@@ -32,7 +33,7 @@ public class UserCredentialController {
 	
 	
 	@PostMapping("/user/register")
-	public ResponseEntity<?> registerNewUser(@RequestBody UserCredential user){
+	public ResponseEntity<?> registerNewUser(@RequestBody UserCredentialPojo user){
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return new ResponseEntity<>(userCredentialService.registerNewUser(user),HttpStatus.OK);
 	}

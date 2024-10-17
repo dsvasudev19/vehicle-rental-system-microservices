@@ -36,7 +36,7 @@ public class UserService implements UserServiceInter{
 	public UserPojo getAUser(long userId) {
 		Optional<UsersEntity> usersEntity=userRepositoryInter.findById(userId);
 		if(!usersEntity.isPresent())
-			throw new RuntimeException("there is no user with given id");
+			return null;
 		UserPojo userPojo=new UserPojo();
 		BeanUtils.copyProperties(usersEntity.get(), userPojo);
 		return userPojo;

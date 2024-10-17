@@ -1,6 +1,8 @@
 package com.project.vehicles_service.models;
 
 
+import java.util.List;
+
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -25,5 +27,7 @@ public class VehiclePojo {
 	private double pricePerHr;
 
 	private VendorPojo vendor;
+	
+	private List<ReviewPojo> reviews;
 
 }

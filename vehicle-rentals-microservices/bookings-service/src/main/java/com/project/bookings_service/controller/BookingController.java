@@ -30,44 +30,44 @@ public class BookingController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<BookingPojo>> getAllBookings(){
+	public ResponseEntity<?> getAllBookings(){
 		List<BookingPojo> bookingPojos=bookingService.getAllBookings();
-		return new ResponseEntity<List<BookingPojo>>(bookingPojos,HttpStatus.OK);
+		return new ResponseEntity<>(bookingPojos,HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<BookingPojo> getABooking(@PathVariable("id") long bookingId){
+	public ResponseEntity<?> getABooking(@PathVariable("id") long bookingId){
 		BookingPojo bookingPojo=bookingService.getABooking(bookingId);
 		return new ResponseEntity<BookingPojo>(bookingPojo,HttpStatus.OK);
 	}
 	
 	@GetMapping("/users/{id}")
-	public ResponseEntity<BookingPojo>getBookingByUserId(@PathVariable("id") long userId){
-		BookingPojo bookingPojo=bookingService.getBookingByUserId(userId);
-		return new ResponseEntity<BookingPojo>(bookingPojo,HttpStatus.OK);
+	public ResponseEntity<?> getBookingByUserId(@PathVariable("id") long userId){
+		List<?> bookingPojo=bookingService.getBookingByUserId(userId);
+		return new ResponseEntity<>(bookingPojo,HttpStatus.OK);
 	}
 	
 	@GetMapping("/vehicle/{id}")
-	public ResponseEntity<BookingPojo>getBookingByVehicleId(@PathVariable ("id")long vehicleId){
-		BookingPojo bookingPojo=bookingService.getBookingByVehicleId(vehicleId);
-		return new ResponseEntity<BookingPojo>(bookingPojo,HttpStatus.OK);
+	public ResponseEntity<?> getBookingByVehicleId(@PathVariable ("id")long vehicleId){
+		List<BookingPojo> bookingPojo=bookingService.getBookingsByVehicleId(vehicleId);
+		return new ResponseEntity<>(bookingPojo,HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<BookingPojo> addBooking(@RequestBody BookingPojo bookingPojo){
+	public ResponseEntity<?> addBooking(@RequestBody BookingPojo bookingPojo){
 		BookingPojo pojo=bookingService.addBooking(bookingPojo);
 		return new ResponseEntity<BookingPojo>(pojo,HttpStatus.CREATED);
 	}
 	
 	
 	@PutMapping
-	public ResponseEntity<BookingPojo>updateBooking(@RequestBody BookingPojo bookingPojo){
+	public ResponseEntity<?> updateBooking(@RequestBody BookingPojo bookingPojo){
 		BookingPojo pojo=bookingService.updateBooking(bookingPojo);
 		return new ResponseEntity<BookingPojo>(pojo,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{bookingId}")
-	public ResponseEntity<?>deleteBooking(long bookingId){
+	public ResponseEntity<?> deleteBooking(long bookingId){
 		bookingService.deleteBooking(bookingId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

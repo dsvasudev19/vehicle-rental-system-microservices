@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.vehicles_service.ipc.BookingClient;
+import com.project.vehicles_service.ipc.ReviewClient;
 import com.project.vehicles_service.models.BookingPojo;
+import com.project.vehicles_service.models.ReviewPojo;
 import com.project.vehicles_service.models.VehiclePojo;
 import com.project.vehicles_service.service.VehicleService;
 
@@ -30,6 +32,9 @@ public class VehicleController {
 
 	@Autowired
 	private BookingClient bookingClient;
+	
+	@Autowired
+	private ReviewClient reviewClient;
 	
 	@GetMapping("/greet")
 	public String greet() {
@@ -45,8 +50,9 @@ public class VehicleController {
 	public ResponseEntity<?> getVehicleById(@PathVariable long id) {
 		VehiclePojo vehicle = vehicleService.getVehicleById(id);
 		
-		
 		if (vehicle != null) {
+			List<ReviewPojo> reviewsOfVehicle= reviewClient.getReviewsOfVehicle(id);
+			vehicle.setReviews(reviewsOfVehicle);
 			return new ResponseEntity<>(vehicle, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
