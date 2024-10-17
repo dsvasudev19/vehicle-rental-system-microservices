@@ -14,3 +14,7 @@ CREATE DATABASE "customer-support";
 CREATE DATABASE "reviews-service";
 
 CREATE DATABASE "coupons-service";
+
+CREATE DATABASE "payment-service";
+
+CREATE DATABASE "documents-service";

@@ -1,5 +1,7 @@
 package com.project.user_service.ipc;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,8 @@ import com.project.user_service.model.BookingPojo;
 public interface BookingClient {
 	
 	@GetMapping("/users/{id}")
-	public ResponseEntity<BookingPojo>getBookingByUserId(@PathVariable("id") long userId);
+	public List<BookingPojo> getBookingByUserId(@PathVariable("id") long userId);
 
 	@PostMapping
-	public ResponseEntity<BookingPojo> addBooking(@RequestBody BookingPojo bookingPojo);
+	public BookingPojo addBooking(@RequestBody BookingPojo bookingPojo);
 }

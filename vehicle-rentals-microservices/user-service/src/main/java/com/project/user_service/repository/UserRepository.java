@@ -5,8 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.project.user_service.entity.UsersEntity;
+import com.project.user_service.entity.EndUser;
 
 @Repository
-public interface UserRepositoryInter extends JpaRepository<UsersEntity,Long>{
+public interface UserRepository extends JpaRepository<EndUser,Long>{
+	Optional<EndUser> findByEmail(String email);
 }

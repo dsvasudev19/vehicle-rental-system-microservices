@@ -21,6 +21,6 @@ public class BookingPojo {
 		private double durationHrs;
 		private double price;
 		private LocalDateTime createDate;
-		
+		private String status;
 		
 }

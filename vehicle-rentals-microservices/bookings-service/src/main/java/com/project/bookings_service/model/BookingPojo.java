@@ -17,12 +17,10 @@ public class BookingPojo {
 	private LocalDateTime toDate;
 	private double duartionHours;
 	private double price;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
+    private long userId;
+    private long vehicleId;
+    private String status;
 	private UserPojo user;
-
-	@ManyToOne
-	@JoinColumn(name = "vehicle_id")
+    
 	private VehiclePojo vehicle;
 }

@@ -7,21 +7,22 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.project.user_service.entity.UsersEntity;
+import com.project.user_service.entity.EndUser;
 import com.project.user_service.model.UserPojo;
-import com.project.user_service.repository.UserRepositoryInter;
+import com.project.user_service.repository.UserRepository;
 
 @Service
 public class UserService implements UserServiceInter{
 
 	@Autowired
-	UserRepositoryInter userRepositoryInter;
+	UserRepository userRepositoryInter;
 	
 	@Override
 	public List<UserPojo> getAllUsers() {
-		List<UsersEntity> userEntity= userRepositoryInter.findAll();
+		List<EndUser> userEntity= userRepositoryInter.findAll();
 		List<UserPojo> userPojos=new ArrayList<>();
 		userEntity.stream().forEach(entity->{
 			UserPojo userPojo=new UserPojo();
@@ -34,9 +35,9 @@ public class UserService implements UserServiceInter{
 
 	@Override
 	public UserPojo getAUser(long userId) {
-		Optional<UsersEntity> usersEntity=userRepositoryInter.findById(userId);
+		Optional<EndUser> usersEntity=userRepositoryInter.findById(userId);
 		if(!usersEntity.isPresent())
-			throw new RuntimeException("there is no user with given id");
+			return null;
 		UserPojo userPojo=new UserPojo();
 		BeanUtils.copyProperties(usersEntity.get(), userPojo);
 		return userPojo;
@@ -55,7 +56,11 @@ public class UserService implements UserServiceInter{
 	
 	@Override
 	public UserPojo addUser(UserPojo userPojo) {
-		UsersEntity usersEntity=new UsersEntity();
+		EndUser usersEntity=new EndUser();
+		Optional<EndUser> userFound=userRepositoryInter.findByEmail(userPojo.getEmail());
+		if(userFound.isPresent()) {
+			return null;
+		}
 		BeanUtils.copyProperties(userPojo, usersEntity);
 		userRepositoryInter.save(usersEntity);
 		return userPojo;
@@ -63,7 +68,7 @@ public class UserService implements UserServiceInter{
 
 	@Override
 	public UserPojo updateUser(UserPojo userPojo) {
-		UsersEntity usersEntity=new UsersEntity();
+		EndUser usersEntity=new EndUser();
 		BeanUtils.copyProperties(userPojo, usersEntity);
 		userRepositoryInter.saveAndFlush(usersEntity);
 		return userPojo;
@@ -74,6 +79,15 @@ public class UserService implements UserServiceInter{
 		userRepositoryInter.deleteById(userId);
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean checkIfUserExists(String email) {
+		Optional<EndUser> userOptional=userRepositoryInter.findByEmail(email);
+		if(userOptional.isPresent()) {
+			return true;
+		}
+		return false;
 	}
 	
 }

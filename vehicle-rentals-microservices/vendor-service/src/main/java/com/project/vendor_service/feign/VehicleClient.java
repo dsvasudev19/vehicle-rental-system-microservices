@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.project.vendor_service.models.VehiclePojo;
 
-@FeignClient(value = "vehicles-service",url = "http://api-gateway:9000/vehicle/")
+@FeignClient(value = "vehicles-service",url = "http://localhost:9000/vehicle/")
+
 public interface VehicleClient {
 	
 	@GetMapping("/vendor/{vendorId}")

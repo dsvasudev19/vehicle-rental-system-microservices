@@ -86,4 +86,12 @@ public class VendorService {
 		vendorRepository.deleteById(id);
 		return true;
 	}
+	
+	public boolean checkIfVendorExists(String email) {
+		Optional<Vendor> vendorFound=vendorRepository.findByEmail(email);
+		if(vendorFound.isPresent()) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -13,5 +13,4 @@ public class JavaMailMessage {
 	private String subject;
 	private String body;
 	
-
 }

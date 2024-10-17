@@ -12,7 +12,9 @@ public class BookingPojo {
 	private LocalDateTime toDestination;
 	private double duartionHours;
 	private double price;
-
+	private String status;
+	private long userId;
+	private long vehicleId;
 	private UserPojo user;
 
 	private VehiclePojo vehicle;

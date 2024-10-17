@@ -8,9 +8,10 @@ public interface BookingServiceInter {
 	
 	List<BookingPojo> getAllBookings();
 	BookingPojo getABooking(long bookingId);
-	BookingPojo getBookingByUserId(long userId);
+	List<BookingPojo> getBookingByUserId(long userId);
 	BookingPojo addBooking(BookingPojo bookingPojo);
 	BookingPojo updateBooking(BookingPojo bookingPojo);
+	List<BookingPojo> getBookingsByVehicleId(long vehicleId);
 	void deleteBooking(long bookingId);
 	
 }

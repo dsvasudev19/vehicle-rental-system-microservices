@@ -23,4 +23,5 @@ public class Vehicle {
 	private String description;
 	private double pricePerHr;
 	private long vendorId;
+	private String imagePath;
 }

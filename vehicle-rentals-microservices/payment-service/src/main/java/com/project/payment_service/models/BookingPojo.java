@@ -1,8 +1,7 @@
-package com.project.bookings_service.entity;
+package com.project.payment_service.models;
 
 import java.time.LocalDateTime;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
-public class BookingEntity {
-	@Id
+
+public class BookingPojo {
 	private long bookingId;
 	private LocalDateTime bookingDate;
 	private LocalDateTime fromDate;
@@ -21,5 +19,7 @@ public class BookingEntity {
 	private double price;
 	private long userId;
 	private long vehicleId;
-	
+	private UserPojo user;
+
+	private VehiclePojo vehicle;
 }
