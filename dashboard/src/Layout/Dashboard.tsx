@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Vendors from "../pages/Vendors";
 import { BadgeIndianRupee, CarFront, ChartNoAxesColumnDecreasing, CreditCard, LayoutDashboard, SquarePen, UserCog, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 
