@@ -1,6 +1,7 @@
 package com.project.vendor_service.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,63 +25,69 @@ import com.project.vendor_service.service.VendorService;
 public class VendorController {
 	@Autowired
 	private VendorService vendorService;
-	
+
 	@Autowired
 	private VehicleClient vehicleClient;
-	
+
 	@GetMapping("/greet")
 	public String greet() {
 		return "Hello! From Vendor Service..............";
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<?> getAllVendors(){
-		return new ResponseEntity<>(vendorService.getAllVendors(),HttpStatus.OK);
+	public ResponseEntity<?> getAllVendors() {
+		return new ResponseEntity<>(vendorService.getAllVendors(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getVendorById(@PathVariable long id){
-		VendorPojo vendorFound=vendorService.getVendorById(id);
-		if(vendorFound!=null) {
-			List<VehiclePojo> vehiclesOfVendor=vehicleClient.getAllVehiclesByVendorId(id);
+	public ResponseEntity<?> getVendorById(@PathVariable long id) {
+		VendorPojo vendorFound = vendorService.getVendorById(id);
+		if (vendorFound != null) {
+			List<VehiclePojo> vehiclesOfVendor = vehicleClient.getAllVehiclesByVendorId(id);
 			vendorFound.setVehicles(vehiclesOfVendor);
-			return new ResponseEntity<>(vendorFound,HttpStatus.OK);
+			return new ResponseEntity<>(vendorFound, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping("/email/{email}")
-	public ResponseEntity<?> getVendorByEmail(@PathVariable String email){
-		VendorPojo vendorFound=vendorService.getVendorByEmail(email);
-		if(vendorFound!=null) {
-			return new ResponseEntity<>(vendorFound,HttpStatus.OK);
+	public ResponseEntity<?> getVendorByEmail(@PathVariable String email) {
+		VendorPojo vendorFound = vendorService.getVendorByEmail(email);
+		if (vendorFound != null) {
+			return new ResponseEntity<>(vendorFound, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
-		
+
 	}
-	
+
 	@GetMapping("/name/{name}")
-	public ResponseEntity<?> getVendorByName(@PathVariable String name){
-		VendorPojo vendorFound=vendorService.getVendorByName(name);
-		if(vendorFound!=null) {
-			return new ResponseEntity<>(vendorFound,HttpStatus.OK);
+	public ResponseEntity<?> getVendorByName(@PathVariable String name) {
+		VendorPojo vendorFound = vendorService.getVendorByName(name);
+		if (vendorFound != null) {
+			return new ResponseEntity<>(vendorFound, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<?> addNewVendor(@RequestBody VendorPojo vendorPojo){
-		return new ResponseEntity<>(vendorService.addVendor(vendorPojo),HttpStatus.OK);
+	public ResponseEntity<?> addNewVendor(@RequestBody VendorPojo vendorPojo) {
+		boolean vendorExists = vendorService.checkIfVendorExists(vendorPojo.getEmail());
+		if (vendorExists) {
+			return new ResponseEntity<>(Map.entry("message", "Vendor Already Exists with the given mail"),
+					HttpStatus.OK);
+		}
+		return new ResponseEntity<>(vendorService.addVendor(vendorPojo), HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateVendorById(@PathVariable long id,@RequestBody VendorPojo updatedVendorPojo){
-		VendorPojo updatedVendor=vendorService.updateVendorById(id, updatedVendorPojo);
-		return new ResponseEntity<>(updatedVendor,HttpStatus.OK);
+	public ResponseEntity<?> updateVendorById(@PathVariable long id, @RequestBody VendorPojo updatedVendorPojo) {
+		VendorPojo updatedVendor = vendorService.updateVendorById(id, updatedVendorPojo);
+		return new ResponseEntity<>(updatedVendor, HttpStatus.OK);
 	}
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteVendorById(@PathVariable long id){
-		boolean deleted=vendorService.deleteVendorById(id);
-		return new ResponseEntity<>(deleted,HttpStatus.OK);
+	public ResponseEntity<?> deleteVendorById(@PathVariable long id) {
+		boolean deleted = vendorService.deleteVendorById(id);
+		return new ResponseEntity<>(deleted, HttpStatus.OK);
 	}
 }

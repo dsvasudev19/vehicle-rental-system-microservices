@@ -1,6 +1,7 @@
 package com.project.payment_service.controllers;
 
 import org.json.JSONObject;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,10 @@ public class TransactionController {
 	}
 
 	@PostMapping("/create-order")
-	public ResponseEntity<?> createNewTransaction(@RequestBody Transaction transaction) throws RazorpayException {
-
+	public ResponseEntity<?> createNewTransaction(@RequestBody TransactionPojo transactionPojo)
+			throws RazorpayException {
+		Transaction transaction = new Transaction();
+		BeanUtils.copyProperties(transactionPojo, transaction);
 		JSONObject orderRequest = new JSONObject();
 		orderRequest.put("amount", transaction.getAmount());
 		orderRequest.put("currency", "INR");
@@ -48,7 +51,7 @@ public class TransactionController {
 		transaction.setStatus(order.get("status"));
 		transaction.setOrderId(order.get("id"));
 		if (order.get("status").equals("created")) {
-
+            
 			transactionService.createTransaction(transaction);
 		}
 		System.out.println(order);
@@ -56,15 +59,22 @@ public class TransactionController {
 		return new ResponseEntity<>(transaction, HttpStatus.OK);
 	}
 
+	@GetMapping("/transactions")
 	public ResponseEntity<?> getAllTransactions() {
 		return new ResponseEntity<>(transactionService.getAllTransactions(), HttpStatus.OK);
 	}
 
+	@GetMapping("/transaction/{id}")
 	public ResponseEntity<?> getTransactionById(@PathVariable long id) {
 		TransactionPojo transactionPojo = transactionService.getTransactionById(id);
 		if (transactionPojo != null) {
 			return new ResponseEntity<>(transactionPojo, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping("/verify-status")
+	public ResponseEntity<?> verifyPaymentStatus(){
+		return new ResponseEntity<>("Ok",HttpStatus.OK);
 	}
 }

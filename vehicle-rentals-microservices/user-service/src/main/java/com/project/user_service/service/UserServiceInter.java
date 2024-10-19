@@ -10,4 +10,5 @@ public interface UserServiceInter {
 		UserPojo addUser(UserPojo userPojo);
 		UserPojo updateUser(UserPojo userPojo);
 		void deleteUser(long userId);
+		boolean checkIfUserExists(String email);
 }

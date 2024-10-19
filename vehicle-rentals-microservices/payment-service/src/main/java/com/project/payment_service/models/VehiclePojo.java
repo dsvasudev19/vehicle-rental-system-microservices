@@ -1,21 +1,12 @@
-package com.project.vehicles_service.models;
-
+package com.project.payment_service.models;
 
 import java.util.List;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-
+import jakarta.persistence.OneToMany;
 
 public class VehiclePojo {
-
 	private long vehicleId;
 	private String name;
 	private String regNo;
@@ -25,9 +16,11 @@ public class VehiclePojo {
 	private String pincode;
 	private String description;
 	private double pricePerHr;
-    private String imagePath;
-	private VendorPojo vendor;
 	
-	private List<ReviewPojo> reviews;
-
+	@ManyToOne
+	@JoinColumn(name="vendorId")
+	VendorPojo vendor;
+	
+	@OneToMany(mappedBy = "vehicle")
+	private List<BookingPojo> bookings;
 }

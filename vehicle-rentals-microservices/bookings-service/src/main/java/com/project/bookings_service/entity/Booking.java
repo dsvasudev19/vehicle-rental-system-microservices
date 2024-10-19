@@ -1,8 +1,6 @@
-package com.project.user_service.entity;
+package com.project.bookings_service.entity;
 
 import java.time.LocalDateTime;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,19 +13,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-
 @Entity
-public class UsersEntity {
+public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long bookingId;
+	private LocalDateTime bookingDate;
+	private LocalDateTime fromDate;
+	private LocalDateTime toDate;
+	private double duartionHours;
+	private double price;
 	private long userId;
-	private String name;
-	private String email;
-	private String phone;
-	private LocalDateTime createdAt;
-
+	private long vehicleId;
+	private String status;
 	@PrePersist
-	public void updateDates() {
-		this.createdAt=LocalDateTime.now();
+	public void UpdateDate() {
+		this.bookingDate=LocalDateTime.now();
 	}
+	
 }

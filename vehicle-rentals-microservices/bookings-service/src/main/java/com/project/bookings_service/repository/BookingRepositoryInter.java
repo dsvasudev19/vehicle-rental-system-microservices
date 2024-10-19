@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.project.bookings_service.entity.BookingEntity;
+import com.project.bookings_service.entity.Booking;
 
 
 @Repository
-public interface BookingRepositoryInter extends JpaRepository<BookingEntity,Long>{
-	List<BookingEntity> findByUserId(long userId);
-	List<BookingEntity> findByVehicleId(long vehicleId);
+public interface BookingRepositoryInter extends JpaRepository<Booking,Long>{
+	List<Booking> findByUserId(long userId);
+	List<Booking> findByVehicleId(long vehicleId);
 }

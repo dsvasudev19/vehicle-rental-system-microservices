@@ -1,6 +1,5 @@
 package com.project.bookings_service.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.bookings_service.entity.BookingEntity;
+import com.project.bookings_service.entity.Booking;
 import com.project.bookings_service.model.BookingPojo;
 import com.project.bookings_service.repository.BookingRepositoryInter;
 
@@ -21,7 +20,7 @@ public class BookingService implements BookingServiceInter {
 
     @Override
     public List<BookingPojo> getAllBookings() {
-        List<BookingEntity> bookingEntities = bookingRepositoryInter.findAll();
+        List<Booking> bookingEntities = bookingRepositoryInter.findAll();
         return bookingEntities.stream()
             .map(entity -> {
                 BookingPojo pojo = new BookingPojo();
@@ -33,7 +32,7 @@ public class BookingService implements BookingServiceInter {
 
     @Override
     public BookingPojo getABooking(long bookingId) {
-        Optional<BookingEntity> bookingEntity = bookingRepositoryInter.findById(bookingId);
+        Optional<Booking> bookingEntity = bookingRepositoryInter.findById(bookingId);
         if (bookingEntity.isPresent()) {
             BookingPojo bookingPojo = new BookingPojo();
             BeanUtils.copyProperties(bookingEntity.get(), bookingPojo);
@@ -46,7 +45,7 @@ public class BookingService implements BookingServiceInter {
 
     @Override
     public List<BookingPojo> getBookingByUserId(long userId) {
-        List<BookingEntity> bookingEntities = bookingRepositoryInter.findByUserId(userId);
+        List<Booking> bookingEntities = bookingRepositoryInter.findByUserId(userId);
         return bookingEntities.stream()
             .map(entity -> {
                 BookingPojo pojo = new BookingPojo();
@@ -58,7 +57,7 @@ public class BookingService implements BookingServiceInter {
 
     @Override
     public List<BookingPojo> getBookingsByVehicleId(long vehicleId) {
-        List<BookingEntity> bookingEntities = bookingRepositoryInter.findByVehicleId(vehicleId);
+        List<Booking> bookingEntities = bookingRepositoryInter.findByVehicleId(vehicleId);
         return bookingEntities.stream()
             .map(entity -> {
                 BookingPojo pojo = new BookingPojo();
@@ -70,15 +69,16 @@ public class BookingService implements BookingServiceInter {
 
     @Override
     public BookingPojo addBooking(BookingPojo bookingPojo) {
-        BookingEntity bookingEntity = new BookingEntity();
+        Booking bookingEntity = new Booking();
         BeanUtils.copyProperties(bookingPojo, bookingEntity);
+        bookingEntity.setStatus("Created");
         bookingRepositoryInter.save(bookingEntity);
         return bookingPojo;
     }
 
     @Override
     public BookingPojo updateBooking(BookingPojo bookingPojo) {
-        BookingEntity bookingEntity = new BookingEntity();
+        Booking bookingEntity = new Booking();
         BeanUtils.copyProperties(bookingPojo, bookingEntity);
         bookingRepositoryInter.saveAndFlush(bookingEntity);
         return bookingPojo;
@@ -87,5 +87,18 @@ public class BookingService implements BookingServiceInter {
     @Override
     public void deleteBooking(long bookingId) {
         bookingRepositoryInter.deleteById(bookingId);
+    }
+    
+    public BookingPojo updateStatusOfBooking(long bookingId,String status) {
+    	Optional<Booking> booking=bookingRepositoryInter.findById(bookingId);
+    	if(booking.isPresent()) {
+    		BookingPojo pojo=new BookingPojo();
+    		Booking foundBooking=booking.get();
+    		foundBooking.setStatus(status);
+    		bookingRepositoryInter.save(foundBooking);
+    		BeanUtils.copyProperties(foundBooking, pojo);
+    		return pojo;
+    	}
+    	return null;
     }
 }

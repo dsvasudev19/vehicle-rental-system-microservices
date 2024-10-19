@@ -1,5 +1,8 @@
 package com.project.vehicles_service.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.vehicles_service.ipc.BookingClient;
 import com.project.vehicles_service.ipc.ReviewClient;
@@ -27,15 +32,18 @@ import com.project.vehicles_service.service.VehicleService;
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {
+
+	private static final String UPLOAD_DIR = "uploads/";
+
 	@Autowired
 	private VehicleService vehicleService;
 
 	@Autowired
 	private BookingClient bookingClient;
-	
+
 	@Autowired
 	private ReviewClient reviewClient;
-	
+
 	@GetMapping("/greet")
 	public String greet() {
 		return "Hello! From Vehicle Service..............";
@@ -49,9 +57,9 @@ public class VehicleController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getVehicleById(@PathVariable long id) {
 		VehiclePojo vehicle = vehicleService.getVehicleById(id);
-		
+
 		if (vehicle != null) {
-			List<ReviewPojo> reviewsOfVehicle= reviewClient.getReviewsOfVehicle(id);
+			List<ReviewPojo> reviewsOfVehicle = reviewClient.getReviewsOfVehicle(id);
 			vehicle.setReviews(reviewsOfVehicle);
 			return new ResponseEntity<>(vehicle, HttpStatus.OK);
 		}
@@ -88,6 +96,46 @@ public class VehicleController {
 	@GetMapping("/vendor/{vendorId}")
 	public ResponseEntity<?> getAllVehiclesByVendorId(@PathVariable("vendorId") long id) {
 		return new ResponseEntity<>(vehicleService.getVehiclesOfVendor(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/add-vehicle")
+	public ResponseEntity<?> addNewVehicleWithImage(@RequestParam("file") MultipartFile file, @RequestParam String name,
+			@RequestParam String regNo, @RequestParam int wheelCount, @RequestParam String type,
+			@RequestParam String location, @RequestParam String pincode, @RequestParam String description,
+			@RequestParam double pricePerHr) {
+		VehiclePojo vehiclePojo = new VehiclePojo();
+		vehiclePojo.setName(name);
+		vehiclePojo.setRegNo(regNo);
+		vehiclePojo.setWheelCount(wheelCount);
+		vehiclePojo.setType(type);
+		vehiclePojo.setLocation(location);
+		vehiclePojo.setPincode(pincode);
+		vehiclePojo.setDescription(description);
+		vehiclePojo.setPricePerHr(pricePerHr);
+
+		String currentDir = System.getProperty("user.dir");
+		if (file != null && !file.isEmpty()) {
+			try {
+				File uploadDirectory = new File(UPLOAD_DIR);
+				if (!uploadDirectory.exists()) {
+					uploadDirectory.mkdirs();
+				}
+				String fileName = UPLOAD_DIR + System.currentTimeMillis() + "-" + file.getOriginalFilename();
+
+				String filePath = Paths.get(currentDir, fileName).toString();
+				file.transferTo(new File(filePath));
+				vehiclePojo.setImagePath(filePath);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				return ResponseEntity.badRequest().body("File upload failed: " + e.getMessage());
+			}
+		} else {
+			return ResponseEntity.badRequest().body("No file uploaded");
+		}
+
+		VehiclePojo newVehiclePojo = vehicleService.addNewVehicle(vehiclePojo);
+		return new ResponseEntity<>(newVehiclePojo, HttpStatus.OK);
 	}
 
 }
