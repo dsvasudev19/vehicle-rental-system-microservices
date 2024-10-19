@@ -11,9 +11,9 @@ CREATE DATABASE "bookings-service";
 
 CREATE DATABASE "customer-support";
 
-CREATE DATABASE "reviews-service";
+CREATE DATABASE "review-service";
 
-CREATE DATABASE "coupons-service";
+CREATE DATABASE "coupon-service";
 
 CREATE DATABASE "payment-service";
 
