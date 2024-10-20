@@ -1,5 +1,7 @@
 package com.project.bookings_service.service;
 
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,6 +74,8 @@ public class BookingService implements BookingServiceInter {
         Booking bookingEntity = new Booking();
         BeanUtils.copyProperties(bookingPojo, bookingEntity);
         bookingEntity.setStatus("Created");
+        long hours = ChronoUnit.HOURS.between(bookingPojo.getFromDate(), bookingPojo.getToDate());
+        bookingEntity.setDuartionHours(hours);
         bookingRepositoryInter.save(bookingEntity);
         return bookingPojo;
     }

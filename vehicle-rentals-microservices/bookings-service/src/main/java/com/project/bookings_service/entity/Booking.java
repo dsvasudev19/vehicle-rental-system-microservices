@@ -30,5 +30,4 @@ public class Booking {
 	public void UpdateDate() {
 		this.bookingDate=LocalDateTime.now();
 	}
-	
 }

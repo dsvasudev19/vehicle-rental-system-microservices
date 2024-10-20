@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.bookings_service.client.MailClient;
+import com.project.bookings_service.client.PaymentClient;
 import com.project.bookings_service.client.UserClient;
 import com.project.bookings_service.client.VehicleClient;
 import com.project.bookings_service.model.BookingPojo;
 import com.project.bookings_service.model.JavaMailMessagePojo;
+import com.project.bookings_service.model.TransactionPojo;
 import com.project.bookings_service.model.UserPojo;
 import com.project.bookings_service.model.VehiclePojo;
 import com.project.bookings_service.service.BookingService;
@@ -40,6 +42,9 @@ public class BookingController {
 
 	@Autowired
 	private VehicleClient vehicleClient;
+
+	@Autowired
+	private PaymentClient paymentClient;
 
 	@GetMapping("/greet")
 	public String greet() {
@@ -71,18 +76,26 @@ public class BookingController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> addBooking(@RequestBody BookingPojo bookingPojo) {
+	public ResponseEntity<?> addBooking(@RequestBody BookingPojo bookingPojo) throws Exception {
 		UserPojo userPojo = userClient.getAUser(bookingPojo.getUserId());
 		VehiclePojo vehiclePojo = vehicleClient.getVehicleById(bookingPojo.getVehicleId());
 		BookingPojo pojo = bookingService.addBooking(bookingPojo);
 		if (pojo != null) {
+			// Create payment Order
+			TransactionPojo transactionPojo = new TransactionPojo();
+			transactionPojo.setAmount(pojo.getPrice() * 100);
+			transactionPojo.setCurrency("INR");
+
+			TransactionPojo payment = paymentClient.createNewTransaction(transactionPojo);
+
+			// Sending Confirmation Mail to the User
 			JavaMailMessagePojo messagePojo = new JavaMailMessagePojo();
 			messagePojo.setTo(userPojo.getEmail());
 			messagePojo.setSubject("Status of your Recent Booking");
 			messagePojo.setBody("Your Booking of " + vehiclePojo.getName() + " from Date: " + bookingPojo.getFromDate()
 					+ " to Date: " + bookingPojo.getToDate() + " is Confirmed. Your Booking Id: "
 					+ pojo.getBookingId());
-			mailClient.sendMailMessage(messagePojo);
+//			mailClient.sendMailMessage(messagePojo);
 			return new ResponseEntity<BookingPojo>(pojo, HttpStatus.CREATED);
 		}
 		return ResponseEntity.noContent().build();
