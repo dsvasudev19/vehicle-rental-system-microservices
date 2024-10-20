@@ -13,7 +13,7 @@ const formValidation = Yup.object().shape({
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
     .required("Confirm password is required"),
 });
-const AddVendor = ({ openModal, close }: any) => {
+const AddVendor = ({ openModal, close,getVendors }: any) => {
   const [showModal, setShowModal] = useState(openModal);
  
   const initialVendorValues = {
@@ -27,6 +27,7 @@ const AddVendor = ({ openModal, close }: any) => {
         const res=await axiosInstance.post("/vendor",values)
         if(res.status===200){
             toast.success("Vendor Added Successfully");
+            getVendors()
         }
     } catch (error) {
         console.log(error)

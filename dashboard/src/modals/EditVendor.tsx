@@ -11,7 +11,7 @@ const formValidation = Yup.object().shape({
     .min(8, "Password must be atleast 8 Characters")
     .required("Phone is required"),
 });
-const EditVendor = ({ openModal, close, vendorId }: any) => {
+const EditVendor = ({ openModal, close, vendorId, getVendors }: any) => {
   const [showModal, setShowModal] = useState(openModal);
 
   const [initialVendorValues, setInitialVendorValues] = useState({
@@ -24,6 +24,7 @@ const EditVendor = ({ openModal, close, vendorId }: any) => {
       const res = await axiosInstance.put("/vendor/" + vendorId, values);
       if (res.status === 200) {
         toast.success("Vendor Details Updated Successfully");
+        getVendors();
       }
     } catch (error) {
       console.log(error);

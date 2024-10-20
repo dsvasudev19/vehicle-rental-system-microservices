@@ -26,6 +26,7 @@ const Vendors = () => {
       const res = await axiosInstance.delete("/vendor/" + id);
       if (res.status === 200) {
         toast.success("Successfully deleted the Vendor");
+        getAllVendors()
       }
     } catch (error) {
       console.log(error);
@@ -131,12 +132,13 @@ const Vendors = () => {
           </tbody>
         </table>
       </div>
-      {showModal && <AddVendor openModal={showModal} close={closeModal} />}
+      {showModal && <AddVendor openModal={showModal} close={closeModal} getVendors={getAllVendors} />}
       {editModal && (
         <EditVendor
           openModal={editModal}
           close={editClose}
           vendorId={vendorId}
+          getVendors={getAllVendors}
         />
       )}
     </div>

@@ -22,6 +22,7 @@ const Users = () => {
       const res = await axiosInstance.delete("/users/" + id);
       if (res?.status === 200) {
         toast.success("User Deleted Successfully");
+        getAllUsers()
       }
     } catch (error) {
       console.log(error);

@@ -39,6 +39,7 @@ const Coupons = () => {
       const res = await axiosInstance.delete("/coupon/" + id);
       if (res?.status === 200) {
         toast.success("Coupon Deleted Successfully");
+        getAllCoupons()
       }
     } catch (error) {
       console.log(error);

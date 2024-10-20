@@ -24,6 +24,7 @@ const Vehicles = () => {
       const res = await axiosInstance.delete("/vehicle/" + id);
       if (res.status === 200) {
         toast.success("Successfully deleted the vehicle");
+        getAllVehicles()
       }
     } catch (error) {
       console.log(error);
