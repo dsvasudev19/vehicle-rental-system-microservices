@@ -19,6 +19,7 @@ public class TransactionPojo {
 	private String currency;
 	private double amount;
 	private String status;
+	private String orderId;
 
 	private LocalDateTime createdAt;
 

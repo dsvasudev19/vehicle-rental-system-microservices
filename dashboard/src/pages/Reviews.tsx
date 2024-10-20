@@ -46,48 +46,17 @@ const Reviews = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                13
-              </th>
-              <td className="px-6 py-4 flex">
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <Star key={index} />
-                ))}
-              </td>
-              <td className="px-6 py-4">Vehicles Condition was not so good.</td>
-              <td className="px-6 py-4">{new Date().toString()}</td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                87
-              </th>
-              <td className="px-6 py-4 flex">
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Star key={index} />
-                ))}
-              </td>
-              <td className="px-6 py-4">
-                Excellent Bike. Mileage was so good.
-              </td>
-              <td className="px-6 py-4">{new Date().toString()}</td>
-            </tr>
+            
             {reviews?.map((review: any) => {
               return (
-                <tr className="bg-white dark:bg-gray-800">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {review?.vehicleId}
                   </th>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 flex">
                     {
                       Array.from({length:review?.rating}).map((_,index)=>{
                         return <Star key={index}/>

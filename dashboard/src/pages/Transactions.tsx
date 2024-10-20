@@ -24,6 +24,7 @@ const Transactions = () => {
       );
       if (res.status === 200) {
         toast.success("Successfully Deleted the Transactions");
+        getAllTransactions();
       }
     } catch (error) {
       console.log(error);
@@ -69,42 +70,6 @@ const Transactions = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                12
-              </th>
-              <td className="px-6 py-4">2</td>
-              <td className="px-6 py-4">123</td>
-              <td className="px-6 py-4">order_348734838479</td>
-              <td className="px-6 py-4">Created</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="flex justify-end gap-6 mt-3 me-3">
-                <a className="cursor-pointer">
-                  <Trash />
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                12
-              </th>
-              <td className="px-6 py-4">2</td>
-              <td className="px-6 py-4">123</td>
-              <td className="px-6 py-4">order_348734838479</td>
-              <td className="px-6 py-4">Created</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="flex justify-end gap-6 mt-3 me-3">
-                <a className="cursor-pointer">
-                  <Trash />
-                </a>
-              </td>
-            </tr>
             {transactions?.map((transaction: any) => {
               return (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -115,7 +80,7 @@ const Transactions = () => {
                     {transaction?.transactionId}
                   </th>
                   <td className="px-6 py-4">{transaction?.userId}</td>
-                  <td className="px-6 py-4">{transaction?.amount}</td>
+                  <td className="px-6 py-4">{transaction?.amount/100}</td>
                   <td className="px-6 py-4">{transaction?.orderId}</td>
                   <td className="px-6 py-4">{transaction?.status}</td>
                   <td className="px-6 py-4">

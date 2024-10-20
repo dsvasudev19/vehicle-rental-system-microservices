@@ -52,11 +52,22 @@ public class CouponService {
 	public Coupon findCouponByCode(String code) {
 		Optional<Coupon> couponFound = couponRepository.findByCode(code);
 		if (couponFound.isPresent()) {
-			Coupon couponRetrieved=couponFound.get();
-			if(LocalDateTime.now().isBefore(couponRetrieved.getExpiryDate())) {				
+			Coupon couponRetrieved = couponFound.get();
+			if (LocalDateTime.now().isBefore(couponRetrieved.getExpiryDate())) {
 				return couponFound.get();
 			}
 		}
 		return null;
+	}
+
+	public boolean blockTheCoupon(long id) {
+		Optional<Coupon> couponFound = couponRepository.findById(id);
+		if (couponFound.isPresent()) {
+			Coupon coupon = couponFound.get();
+			coupon.setExpired(true);
+			couponRepository.saveAndFlush(coupon);
+			return true;
+		}
+		return false;
 	}
 }

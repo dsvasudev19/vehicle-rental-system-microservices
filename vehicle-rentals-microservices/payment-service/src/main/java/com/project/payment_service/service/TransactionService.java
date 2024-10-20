@@ -38,12 +38,20 @@ public class TransactionService {
 		}
 		return null;
 	}
-	
+
 	public TransactionPojo createTransaction(Transaction transaction) {
-		Transaction transactionCreated=transactionRepository.save(transaction);
-		TransactionPojo pojo=new TransactionPojo();
+		Transaction transactionCreated = transactionRepository.save(transaction);
+		TransactionPojo pojo = new TransactionPojo();
 		BeanUtils.copyProperties(transactionCreated, pojo);
 		return pojo;
 	}
 
+	public boolean deleteTransaction(long id) {
+		Optional<Transaction> transaction = transactionRepository.findById(id);
+		if (transaction.isPresent()) {
+			transactionRepository.deleteById(id);
+			return true;
+		}
+		return false;
+	}
 }

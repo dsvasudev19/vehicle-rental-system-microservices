@@ -18,7 +18,6 @@ const EditVendor = ({ openModal, close, vendorId }: any) => {
     name: "",
     email: "",
     phone: "",
-    password: "",
   });
   const handleSubmit = async (values: any, { resetForm }: any) => {
     try {
@@ -59,7 +58,7 @@ const EditVendor = ({ openModal, close, vendorId }: any) => {
             <div className="relative my-6 mx-auto w-[80%]">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Add Vendor</h3>
+                  <h3 className="text-3xl font-semibold">Edit Vendor</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => {
@@ -144,43 +143,6 @@ const EditVendor = ({ openModal, close, vendorId }: any) => {
                                 <ErrorMessage
                                   component={"div"}
                                   name="phone"
-                                  className="text-red-500"
-                                />
-                              </div>
-                            </div>
-
-                            <div className="col-span-3">
-                              <label className="block text-sm font-medium leading-6 text-gray-900">
-                                Password
-                              </label>
-                              <div className="mt-2">
-                                <Field
-                                  type="password"
-                                  name="password"
-                                  id="password"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-3"
-                                />
-                                <ErrorMessage
-                                  component={"div"}
-                                  name="password"
-                                  className="text-red-500"
-                                />
-                              </div>
-                            </div>
-                            <div className="col-span-3">
-                              <label className="block text-sm font-medium leading-6 text-gray-900">
-                                Confirm Password
-                              </label>
-                              <div className="mt-2">
-                                <Field
-                                  type="password"
-                                  name="confirmPassword"
-                                  id="confirmPassword"
-                                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-3"
-                                />
-                                <ErrorMessage
-                                  component={"div"}
-                                  name="confirmPassword"
                                   className="text-red-500"
                                 />
                               </div>

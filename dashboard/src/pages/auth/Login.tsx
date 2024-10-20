@@ -1,12 +1,13 @@
-import { Formik } from "formik";
+import { Formik ,Form} from "formik";
 
 import { axiosInstance } from "../../../axiosInstance";
 
 const Login = () => {
   const handleSubmit = async (values: any, { resetForm }: any) => {
     try {
-      const res = await axiosInstance.post("/auth/validate/user", values);
+      const res = await axiosInstance.post("/auth/user/validate", values);
       if (res.status === 200) {
+        localStorage.setItem("__auth",res.data);
         window.location.href = "/dashboard/home";
         resetForm();
       }
@@ -30,7 +31,7 @@ const Login = () => {
                   onSubmit={handleSubmit}
                 >
                   {() => (
-                    <form className="space-y-4 md:space-y-6" action="#">
+                    <Form className="space-y-4 md:space-y-6" >
                       <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                           Your email
@@ -93,7 +94,7 @@ const Login = () => {
                           Sign up
                         </a>
                       </p>
-                    </form>
+                    </Form>
                   )}
                 </Formik>
               </div>

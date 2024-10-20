@@ -2,10 +2,12 @@ import { Ban, Trash2 } from "lucide-react";
 import  { useEffect, useState } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import toast from "react-hot-toast";
+import AddCoupon from "../modals/AddCoupon";
+import { Plus } from "lucide-react";
 
 const Coupons = () => {
   const [coupons, setCoupons] = useState<any[]>([]);
-  
+  const [showModal,setShowModal]=useState<any>(false);
 
   const blockTheCoupon = async (id: number) => {
     try {
@@ -17,6 +19,9 @@ const Coupons = () => {
       console.log(error);
     }
   };
+
+  
+  
 
   const getAllCoupons = async () => {
     try {
@@ -44,6 +49,10 @@ const Coupons = () => {
     getAllCoupons();
   }, []);
 
+  const closeModal=()=>{
+    setShowModal(false)
+  }
+
   return (
     <div>
       <div className="relative overflow-x-auto">
@@ -51,6 +60,15 @@ const Coupons = () => {
           <h1 className="text-2xl capitalize font-semibold text-gray-900">
             Coupon Management
           </h1>
+          <button
+            className="btn bg-gray-900 rounded p-2 text-white flex gap-2"
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
+            <Plus />
+            Add Coupon
+          </button>
         </div>
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -79,48 +97,7 @@ const Coupons = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                JUBILEE25
-              </th>
-              <td className="px-6 py-4">Percentage</td>
-              <td className="px-6 py-4">10</td>
-              <td className="px-6 py-4">999</td>
-              <td className="px-6 py-4">210</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4 flex gap-3">
-                <a className="cursor-pointer">
-                  <Ban />
-                </a>
-                <a>
-                  <Trash2 />
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                FIRSTRIDE
-              </th>
-              <td className="px-6 py-4">Flat</td>
-              <td className="px-6 py-4">10</td>
-              <td className="px-6 py-4">999</td>
-              <td className="px-6 py-4">210</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4 flex gap-3">
-                <a className="cursor-pointer">
-                  <Ban />
-                </a>
-                <a>
-                  <Trash2 />
-                </a>
-              </td>
-            </tr>
+           
             {coupons?.map((coupon: any) => {
               return (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -161,6 +138,9 @@ const Coupons = () => {
           </tbody>
         </table>
       </div>
+      {
+        showModal && <AddCoupon openModal={showModal} close={closeModal} />
+      }
     </div>
   );
 };

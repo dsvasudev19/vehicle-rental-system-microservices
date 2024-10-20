@@ -8,6 +8,7 @@ const Vendors = () => {
   const [vendors, setVendors] = useState<any>([]);
   const [vendorId, setVendorId] = useState<any>();
   const [showModal, setShowModal] = useState<any>(false);
+  const [editModal,setEditModal]=useState<any>(false);
 
   const getAllVendors = async () => {
     try {
@@ -24,7 +25,7 @@ const Vendors = () => {
     try {
       const res = await axiosInstance.delete("/vendor/" + id);
       if (res.status === 200) {
-        toast.success("Successfully deleted the toast");
+        toast.success("Successfully deleted the Vendor");
       }
     } catch (error) {
       console.log(error);
@@ -38,6 +39,12 @@ const Vendors = () => {
   const closeModal = async () => {
     setShowModal(false);
   };
+
+  const editClose=async()=>{
+    setEditModal((prev)=>{
+      return !prev;
+    })
+  }
 
   return (
     <div>
@@ -78,30 +85,40 @@ const Vendors = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+           
+            {vendors?.map((vendor: any) => {
+             return (
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                1
+                {vendor?.vendorId}
               </th>
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                Apple MacBook Pro 17"
+                {vendor?.name}
               </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
+              <td className="px-6 py-4">{vendor?.email}</td>
+              <td className="px-6 py-4">{vendor?.phone}</td>
+              <td className="px-6 py-4">{new Date(vendor?.createdAt).toLocaleDateString()}</td>
               <td className="flex gap-6 m-3 justify-end">
-                <a className="cursor-pointer">
+                <a
+                  onClick={() => {
+                    console.log("clicking")
+                    setVendorId(vendor?.vendorId);
+                    setEditModal(true);
+                  }}
+                  className="cursor-pointer"
+                >
                   <Pencil />
                 </a>
                 <a
                   onClick={() => {
-                    setVendorId(1);
-                    deleteVendor(vendorId);
+                    setVendorId(vendor?.vendorId);
+                    deleteVendor(vendor?.vendorId);
                   }}
                   className="cursor-pointer"
                 >
@@ -109,86 +126,16 @@ const Vendors = () => {
                 </a>
               </td>
             </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                1
-              </th>
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="flex gap-6 m-3 justify-end">
-                <a
-                  onClick={() => {
-                    setVendorId(2);
-                  }}
-                >
-                  <Pencil />
-                </a>
-                <a
-                  onClick={() => {
-                    setVendorId(1);
-                    deleteVendor(vendorId);
-                  }}
-                >
-                  <Trash2 />
-                </a>
-              </td>
-            </tr>
-
-            {vendors?.map((vendor: any) => {
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {vendor?.id}
-                </th>
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {vendor?.name}
-                </th>
-                <td className="px-6 py-4">{vendor?.email}</td>
-                <td className="px-6 py-4">{vendor?.phone}</td>
-                <td className="px-6 py-4">{vendor?.createdAt}</td>
-                <td>
-                  <a
-                    onClick={() => {
-                      setVendorId(vendor?.id);
-                      setShowModal(true);
-                    }}
-                  >
-                    <Pencil />
-                  </a>
-                  <a
-                    onClick={() => {
-                      setVendorId(vendor?.id);
-                      deleteVendor(vendorId);
-                    }}
-                  >
-                    <Trash2 />
-                  </a>
-                </td>
-              </tr>;
+             );
             })}
           </tbody>
         </table>
       </div>
       {showModal && <AddVendor openModal={showModal} close={closeModal} />}
-      {showModal && vendorId && (
+      {editModal && (
         <EditVendor
-          openModal={showModal}
-          close={closeModal}
+          openModal={editModal}
+          close={editClose}
           vendorId={vendorId}
         />
       )}

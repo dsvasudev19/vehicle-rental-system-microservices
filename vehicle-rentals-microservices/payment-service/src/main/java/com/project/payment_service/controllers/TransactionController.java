@@ -1,5 +1,7 @@
 package com.project.payment_service.controllers;
 
+import java.util.Map;
+
 import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +83,10 @@ public class TransactionController {
 	
 	@DeleteMapping("/delete-transaction/{id}")
 	public ResponseEntity<?> deleteTransaction(@PathVariable long id){
-		return new ResponseEntity<>("Ok",HttpStatus.OK);
+		boolean deleted=transactionService.deleteTransaction(id);
+		if(deleted) {
+			return new ResponseEntity<>("Ok",HttpStatus.OK);
+		}
+		return new ResponseEntity<>(Map.entry("message", "Transaction Not Found"),HttpStatus.NOT_FOUND);
 	}
 }

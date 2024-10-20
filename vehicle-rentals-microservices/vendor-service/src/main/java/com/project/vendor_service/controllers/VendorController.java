@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.vendor_service.feign.VehicleClient;
@@ -21,8 +24,10 @@ import com.project.vendor_service.models.VendorPojo;
 import com.project.vendor_service.models.VendorWrapper;
 import com.project.vendor_service.service.VendorService;
 
+//@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/vendor")
+
 public class VendorController {
 	@Autowired
 	private VendorService vendorService;
@@ -33,6 +38,14 @@ public class VendorController {
 	@GetMapping("/greet")
 	public String greet() {
 		return "Hello! From Vendor Service..............";
+	}
+
+	@RequestMapping(value = "/**", method = RequestMethod.OPTIONS)
+	public ResponseEntity<Void> handlePreflightRequest() {
+		return ResponseEntity.ok().header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:5173")
+				.header(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "GET, POST, PUT, DELETE, PATCH")
+				.header(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "Authorization, Content-Type")
+				.header(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true").build();
 	}
 
 	@GetMapping
@@ -69,11 +82,11 @@ public class VendorController {
 		}
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@GetMapping("/id-name/vendors")
-	public ResponseEntity<?> getVendorDetails(){
-		List<VendorWrapper> vendors=vendorService.getVendorDetails();
-		return new ResponseEntity<>(vendors,HttpStatus.OK);
+	public ResponseEntity<?> getVendorDetails() {
+		List<VendorWrapper> vendors = vendorService.getVendorDetails();
+		return new ResponseEntity<>(vendors, HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -97,4 +110,5 @@ public class VendorController {
 		boolean deleted = vendorService.deleteVendorById(id);
 		return new ResponseEntity<>(deleted, HttpStatus.OK);
 	}
+
 }

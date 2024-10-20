@@ -1,6 +1,8 @@
 package com.project.vehicles_service.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Vehicle {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long vehicleId;
 	private String name;
 	private String regNo;

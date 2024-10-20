@@ -1,6 +1,7 @@
-import{ useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { axiosInstance } from "../../axiosInstance";
-import {  Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
+import toast from "../../node_modules/react-hot-toast/dist/index";
 
 const Users = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -10,6 +11,17 @@ const Users = () => {
       const res = await axiosInstance.get("/users");
       if (res.status === 200) {
         setUsers(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteUser = async (id: number) => {
+    try {
+      const res = await axiosInstance.delete("/users/" + id);
+      if (res?.status === 200) {
+        toast.success("User Deleted Successfully");
       }
     } catch (error) {
       console.log(error);
@@ -52,49 +64,14 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                13
-              </th>
-              <td className="px-6 py-4 flex">Ram</td>
-              <td className="px-6 py-4">ram@gmail.com</td>
-              <td className="px-6 py-4">+91 3489839483</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="flex justify-end mr-6 mt-3">
-                <a>
-                  <Trash2 />
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                87
-              </th>
-              <td className="px-6 py-4 flex">Panth</td>
-              <td className="px-6 py-4">panth@gmail.com</td>
-              <td className="px-6 py-4">+91 8834873434</td>
-
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="flex justify-end mr-6 mt-3">
-                <a>
-                  <Trash2 />
-                </a>
-              </td>
-            </tr>
-            {users?.map((user: any) => {
+            {users?.map((user: any,index:any) => {
               return (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    {user?.id}
+                    {user?.userId}
                   </th>
                   <td className="px-6 py-4 flex">{user?.name}</td>
                   <td className="px-6 py-4">{user?.email}</td>
@@ -102,6 +79,16 @@ const Users = () => {
 
                   <td className="px-6 py-4">
                     {new Date(user?.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="flex justify-end mr-6 mt-3">
+                    <a
+                      onClick={() => {
+                        deleteUser(user?.userId);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      <Trash2 />
+                    </a>
                   </td>
                 </tr>
               );

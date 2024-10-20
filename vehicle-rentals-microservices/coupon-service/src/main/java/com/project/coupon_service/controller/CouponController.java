@@ -1,5 +1,7 @@
 package com.project.coupon_service.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,14 +54,20 @@ public class CouponController {
 		return new ResponseEntity<>(couponService.updateCoupon(id, coupon), HttpStatus.OK);
 	}
 
+	@GetMapping("/block/{id}")
+	public ResponseEntity<?> blockTheCoupon(@PathVariable long id){
+		boolean blocked=couponService.blockTheCoupon(id);
+		if(blocked) {
+			return new ResponseEntity<>("Ok",HttpStatus.OK);
+		}
+		return new ResponseEntity<>(Map.entry("Message", "Coupon Not found."),HttpStatus.NOT_FOUND);
+	}
+
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteCouponById(@PathVariable long id) {
 		return new ResponseEntity<>(couponService.deleteCouponById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/block/{id}")
-	public ResponseEntity<?> blockTheCoupon(@PathVariable long id){
-		return new ResponseEntity<>("Ok",HttpStatus.OK);
-	}
-
+	
 }

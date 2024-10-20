@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <AppRoutes />
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

@@ -57,37 +57,7 @@ const Bookings = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                17
-              </th>
-              <td className="px-6 py-4">1</td>
-              <td className="px-6 py-4">2</td>
-              <td className="px-6 py-4">4554</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">Created</td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                17
-              </th>
-              <td className="px-6 py-4">1</td>
-              <td className="px-6 py-4">2</td>
-              <td className="px-6 py-4">4554</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">{new Date().toLocaleDateString()}</td>
-              <td className="px-6 py-4">Created</td>
-            </tr>
-
+           
             {bookings?.map((booking: any, index: any) => {
               return (
                 <tr
