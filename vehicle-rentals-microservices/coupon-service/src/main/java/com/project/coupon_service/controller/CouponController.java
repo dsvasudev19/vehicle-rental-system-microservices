@@ -56,5 +56,10 @@ public class CouponController {
 	public ResponseEntity<?> deleteCouponById(@PathVariable long id) {
 		return new ResponseEntity<>(couponService.deleteCouponById(id), HttpStatus.OK);
 	}
+	
+	@GetMapping("/block/{id}")
+	public ResponseEntity<?> blockTheCoupon(@PathVariable long id){
+		return new ResponseEntity<>("Ok",HttpStatus.OK);
+	}
 
 }

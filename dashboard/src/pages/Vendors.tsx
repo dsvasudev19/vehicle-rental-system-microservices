@@ -3,10 +3,11 @@ import { axiosInstance } from "./../../axiosInstance";
 import { Trash2, Pencil, Plus } from "lucide-react";
 import AddVendor from "../modals/AddVendor";
 import toast from "react-hot-toast";
+import EditVendor from "../modals/EditVendor";
 const Vendors = () => {
   const [vendors, setVendors] = useState<any>([]);
   const [vendorId, setVendorId] = useState<any>();
-  const [showModal,setShowModal]=useState<any>(false);
+  const [showModal, setShowModal] = useState<any>(false);
 
   const getAllVendors = async () => {
     try {
@@ -21,10 +22,10 @@ const Vendors = () => {
 
   const deleteVendor = async (id: number) => {
     try {
-        const res=await axiosInstance.delete("/vendor/"+id);
-        if(res.status===200){
-            toast.success("Successfully deleted the toast");
-        }
+      const res = await axiosInstance.delete("/vendor/" + id);
+      if (res.status === 200) {
+        toast.success("Successfully deleted the toast");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -34,9 +35,9 @@ const Vendors = () => {
     getAllVendors();
   }, []);
 
-  const closeModal=async()=>{
+  const closeModal = async () => {
     setShowModal(false);
-  }
+  };
 
   return (
     <div>
@@ -125,7 +126,11 @@ const Vendors = () => {
               <td className="px-6 py-4">Laptop</td>
               <td className="px-6 py-4">$2999</td>
               <td className="flex gap-6 m-3 justify-end">
-                <a>
+                <a
+                  onClick={() => {
+                    setVendorId(2);
+                  }}
+                >
                   <Pencil />
                 </a>
                 <a
@@ -157,9 +162,12 @@ const Vendors = () => {
                 <td className="px-6 py-4">{vendor?.phone}</td>
                 <td className="px-6 py-4">{vendor?.createdAt}</td>
                 <td>
-                  <a onClick={()=>{
-                    setVendorId(vendor?.id)
-                  }}>
+                  <a
+                    onClick={() => {
+                      setVendorId(vendor?.id);
+                      setShowModal(true);
+                    }}
+                  >
                     <Pencil />
                   </a>
                   <a
@@ -177,6 +185,13 @@ const Vendors = () => {
         </table>
       </div>
       {showModal && <AddVendor openModal={showModal} close={closeModal} />}
+      {showModal && vendorId && (
+        <EditVendor
+          openModal={showModal}
+          close={closeModal}
+          vendorId={vendorId}
+        />
+      )}
     </div>
   );
 };

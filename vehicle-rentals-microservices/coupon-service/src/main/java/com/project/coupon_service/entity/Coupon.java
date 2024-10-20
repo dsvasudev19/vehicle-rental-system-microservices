@@ -18,7 +18,7 @@ public class Coupon {
 	@Id
 	private long id;
 	private String code;
-	private String type;
+	private String type;	
 	private double discount;
 	private double minPurchaseValue;
 	private double maxDiscountValue;
