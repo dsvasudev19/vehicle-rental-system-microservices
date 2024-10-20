@@ -1,18 +1,13 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Dashboard from './assets/Dashboard'
+import AppRoutes from "./Router";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Dashboard</h1>
-      
-    </>
-  )
+    <div>
+      <AppRoutes />
+      <Toaster position="top-center" reverseOrder={false} />
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.vendor_service.feign.VehicleClient;
 import com.project.vendor_service.models.VehiclePojo;
 import com.project.vendor_service.models.VendorPojo;
+import com.project.vendor_service.models.VendorWrapper;
 import com.project.vendor_service.service.VendorService;
 
 @RestController
@@ -67,6 +68,12 @@ public class VendorController {
 			return new ResponseEntity<>(vendorFound, HttpStatus.OK);
 		}
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/id-name/vendors")
+	public ResponseEntity<?> getVendorDetails(){
+		List<VendorWrapper> vendors=vendorService.getVendorDetails();
+		return new ResponseEntity<>(vendors,HttpStatus.OK);
 	}
 
 	@PostMapping
