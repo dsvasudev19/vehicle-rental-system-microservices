@@ -41,7 +41,7 @@ const Vendors = () => {
   };
 
   const editClose=async()=>{
-    setEditModal((prev)=>{
+    setEditModal((prev:any)=>{
       return !prev;
     })
   }
