@@ -16,7 +16,10 @@ const Vendors = () => {
       if (res.status === 200) {
         setVendors(res.data);
       }
-    } catch (error) {
+    } catch (error:any) {
+      if(error?.response.status===401){
+        window.location.href="/auth/login"
+      }
       console.log(error);
     }
   };

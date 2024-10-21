@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 import Dashboard from "./Layout/Dashboard";
 import Vendors from "./pages/Vendors";
 import Users from "./pages/Users";
@@ -34,6 +34,7 @@ const AppRoutes = () => {
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="*" element={<NotFound />} />
+        <Route path="/" element={<Navigate to="/auth/login" />} />
       </Routes>
     </BrowserRouter>
   );
