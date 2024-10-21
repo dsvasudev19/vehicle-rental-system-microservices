@@ -95,7 +95,7 @@ public class BookingController {
 			messagePojo.setBody("Your Booking of " + vehiclePojo.getName() + " from Date: " + bookingPojo.getFromDate()
 					+ " to Date: " + bookingPojo.getToDate() + " is Confirmed. Your Booking Id: "
 					+ pojo.getBookingId());
-//			mailClient.sendMailMessage(messagePojo);
+			mailClient.sendMailMessage(messagePojo);
 			return new ResponseEntity<BookingPojo>(pojo, HttpStatus.CREATED);
 		}
 		return ResponseEntity.noContent().build();
