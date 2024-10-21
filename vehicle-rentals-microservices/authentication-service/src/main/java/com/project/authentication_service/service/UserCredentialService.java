@@ -35,7 +35,7 @@ public class UserCredentialService {
 		return pojo;
 	}
 	
-	public String validateUser(UserCredential user) {
+	public String validateUser(UserCredentialPojo user) {
 		Authentication auth=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 		if(auth.isAuthenticated()) {
 			

@@ -18,6 +18,7 @@ const Register = () => {
 
       if (response.status === 200) {
         toast.success("Registration Successfull");
+        resetForm();
       }
     } catch (error: any) {
       console.log(error);
@@ -35,7 +36,7 @@ const Register = () => {
       .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .oneOf([Yup.ref("password"), ""], "Passwords must match")
       .required("Confirm password is required"),
     termsAccepted: Yup.boolean().oneOf(
       [true],
@@ -64,7 +65,7 @@ const Register = () => {
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
-                  {({ isSubmitting }) => (
+                  {() => (
                     <Form className="space-y-4 md:space-y-6">
                       <div>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

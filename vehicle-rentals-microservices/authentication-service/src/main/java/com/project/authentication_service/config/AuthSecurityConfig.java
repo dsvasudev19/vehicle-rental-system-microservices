@@ -26,7 +26,7 @@ public class AuthSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable()).authorizeHttpRequests(request -> request.anyRequest().permitAll())
-				.formLogin(Customizer.withDefaults());
+				.formLogin(Customizer.withDefaults()).httpBasic(Customizer.withDefaults());
 		return http.build();
 	}
 
@@ -47,7 +47,6 @@ public class AuthSecurityConfig {
 	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
 	}
-	
 	
 	
 }
