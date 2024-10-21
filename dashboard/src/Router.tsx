@@ -12,6 +12,7 @@ import Login from "./pages/auth/Login";
 import Home from "./pages/Home";
 import Register from "./pages/auth/Register";
 import NotFound from "./pages/NotFound";
+import Support from "./pages/Support";
 
 const AppRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AppRoutes = () => {
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="bookings" element={<Bookings />} />
           <Route path="transactions" element={<Transactions />} />
+          <Route path="support" element={<Support />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/auth/*">

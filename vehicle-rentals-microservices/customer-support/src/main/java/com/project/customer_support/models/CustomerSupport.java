@@ -18,6 +18,7 @@ public class CustomerSupport {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String customerName;
+	private String email;
 	private String subject;
 	private String description;
 	private boolean status;

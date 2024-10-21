@@ -1,6 +1,7 @@
 package com.project.customer_support.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,16 @@ public class CustomerSupportController {
 	public ResponseEntity<?> postNewEnquiry(@RequestBody CustomerSupport supportPojo) {
 		CustomerSupport enquiry = supportService.postNewEnquiry(supportPojo);
 		return new ResponseEntity<>(enquiry, HttpStatus.OK);
+	}
+	
+	@GetMapping("/enquiry/solve/{id}")
+	public ResponseEntity<?> solveTheTicket(@PathVariable long id){
+		boolean solved=supportService.solveTheTicket(id);
+		if(solved) {
+			return new ResponseEntity<>(solved,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(Map.entry("message", "Ticket not found"),HttpStatus.NOT_FOUND);
+		
 	}
 
 	@GetMapping("/enquiries/customer-name/{name}")

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { BadgeIndianRupee, CarFront, ChartNoAxesColumnDecreasing, CreditCard, LayoutDashboard, SquarePen, UserCog, Users } from "lucide-react";
+import { BadgeIndianRupee, CarFront, ChartNoAxesColumnDecreasing, CreditCard, LayoutDashboard, SquarePen, UserCog, Users,Tickets } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
@@ -131,6 +131,17 @@ const Dashboard = () => {
               >
                 <SquarePen />
                 <span className="flex-1 ms-3 whitespace-nowrap">Reviews</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/dashboard/support"
+                className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
+                  path === "/dashboard/support" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                }`}
+              >
+                <Tickets />
+                <span className="flex-1 ms-3 whitespace-nowrap">Support</span>
               </a>
             </li>
           </ul>

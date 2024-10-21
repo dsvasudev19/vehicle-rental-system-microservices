@@ -51,5 +51,16 @@ public class CustomerSupportService {
 		List<CustomerSupport> enquiries=supportRepo.findBySubjectContaining(keyword);
 		return enquiries;
 	}
+
+	public boolean solveTheTicket(long id) {
+		Optional<CustomerSupport> enquiryOptional=supportRepo.findById(id);
+		if(enquiryOptional.isPresent()) {
+			CustomerSupport enquiry=enquiryOptional.get();
+			enquiry.setStatus(true);
+			supportRepo.saveAndFlush(enquiry);
+			return true;
+		}
+		return false;
+	}
 	
 }
