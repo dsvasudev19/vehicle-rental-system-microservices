@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -37,6 +38,11 @@ public class JwtService {
 		byte[] hashKey = Decoders.BASE64.decode(SECRET);
 		return Keys.hmacShaKeyFor(hashKey);
 
+	}
+	
+	public String getUserId(String token) {
+		Claims claims=(Claims) Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+		return claims.getSubject();
 	}
 
 }

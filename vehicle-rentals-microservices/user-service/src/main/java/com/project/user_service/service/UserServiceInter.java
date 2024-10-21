@@ -11,4 +11,5 @@ public interface UserServiceInter {
 		UserPojo updateUser(UserPojo userPojo);
 		void deleteUser(long userId);
 		boolean checkIfUserExists(String email);
+		UserPojo getUserByEmail(String email);
 }

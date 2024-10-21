@@ -10,4 +10,5 @@ import com.project.user_service.entity.EndUser;
 @Repository
 public interface UserRepository extends JpaRepository<EndUser,Long>{
 	Optional<EndUser> findByEmail(String email);
+	
 }

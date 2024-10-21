@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +89,17 @@ public class UserService implements UserServiceInter{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public UserPojo getUserByEmail(String email) {
+		Optional<EndUser> userOptional=userRepositoryInter.findByEmail(email);
+		if(userOptional.isPresent()) {
+			UserPojo user=new UserPojo();
+			BeanUtils.copyProperties(userOptional.get(), user);
+			return user;
+		}
+		return null;
 	}
 	
 }

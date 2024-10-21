@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties.Http;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -84,7 +85,17 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteUser(@PathVariable("id") long userId) {
+	public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
 		userService.deleteUser(userId);
+		return new ResponseEntity<>(true,HttpStatus.OK);
+	}
+	
+	@GetMapping("/email/{email}")
+	public ResponseEntity<?> getUserByEmail(@PathVariable String email){
+		UserPojo user=userService.getUserByEmail(email);
+		if(user!=null) {
+			return new ResponseEntity<>(user,HttpStatus.OK);
+		}
+		return ResponseEntity.noContent().build();
 	}
 }

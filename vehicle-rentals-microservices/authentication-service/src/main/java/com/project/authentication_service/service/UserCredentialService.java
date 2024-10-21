@@ -49,4 +49,8 @@ public class UserCredentialService {
 		return true;
 	}
 
+	public String getUserId(String token) {
+		return jwtService.getUserId(token);
+	}
+	
 }
