@@ -29,9 +29,10 @@ public class CustomerSupportService {
 	public boolean closeEnquiry(long id) {
 		Optional<CustomerSupport> enquiryFound = supportRepo.findById(id);
 		if (enquiryFound.isPresent()) {
-			CustomerSupport enquiry = enquiryFound.get();
-			enquiry.setStatus(true);
-			supportRepo.save(enquiry);
+//			CustomerSupport enquiry = enquiryFound.get();
+//			enquiry.setStatus(true);
+//			supportRepo.save(enquiry);
+			supportRepo.deleteById(id);
 			return true;
 		}
 		return false;
