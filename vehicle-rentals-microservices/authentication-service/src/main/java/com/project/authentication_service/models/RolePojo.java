@@ -4,7 +4,13 @@ import java.util.List;
 
 import com.project.authentication_service.entity.UserCredential;
 
-import jakarta.persistence.ManyToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+
 
 public class RolePojo {
 	private long roleId;

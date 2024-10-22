@@ -1,16 +1,15 @@
 package com.project.authentication_service.entity;
 
-import java.util.List;
-
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 
 @NoArgsConstructor
@@ -18,12 +17,11 @@ import lombok.NoArgsConstructor;
 @Data
 
 @Entity
-public class Role {
+public class ForgotPasswordToken {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long roleId;
-	private String name;
-	
-	@ManyToMany(mappedBy = "roles")
-	private List<UserCredential> usersCrentials;
+	private long id;
+	private String username;
+	private String token;
+	private LocalDate expiryDate;
 }

@@ -2,6 +2,8 @@ package com.project.authentication_service.entity;
 
 import java.util.List;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +27,7 @@ public class UserCredential {
 	private String username;
 	private String password;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.PERSIST)	
 	@JoinTable(joinColumns = @JoinColumn(name = "id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 
