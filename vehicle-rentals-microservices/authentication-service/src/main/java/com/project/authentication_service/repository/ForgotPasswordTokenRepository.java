@@ -10,4 +10,5 @@ import com.project.authentication_service.entity.ForgotPasswordToken;
 @Repository
 public interface ForgotPasswordTokenRepository extends JpaRepository<ForgotPasswordToken, Long> {
 	Optional<ForgotPasswordToken> findByToken(String token);
+	void deleteByUsername(String username); 
 }

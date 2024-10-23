@@ -103,18 +103,18 @@ const Login = () => {
                               id="remember"
                               name="remember"
                               type="checkbox"
-                              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800 hidden"
+                              className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                             />
                           </div>
                           <div className="ml-3 text-sm">
-                            <label className="text-gray-500 dark:text-gray-300 hidden">
+                            <label className="text-gray-500 dark:text-gray-300">
                               Remember me
                             </label>
                           </div>
                         </div>
                         <a
-                          href="#"
-                          className="text-sm font-medium text-white hover:underline dark:text-primary-500"
+                          href="/auth/forgot-password"
+                          className="text-sm font-medium text-gray-900 hover:underline dark:text-primary-500"
                         >
                           Forgot password?
                         </a>

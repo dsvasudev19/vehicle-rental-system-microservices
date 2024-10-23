@@ -96,7 +96,7 @@ public class UserCredentialService {
 	public boolean resetPassword(String token, ResetPassword resetPassword) {
 		String username = resetPassword.getUsername();
 		Optional<UserCredential> userCredentialPojo = userRepository.findByUsername(username);
-		Optional<ForgotPasswordToken> tokenOptional = tokenRepository.findByToken(token);
+		Optional<ForgotPasswordToken> tokenOptional=tokenRepository.findByToken(token);
 		if (userCredentialPojo.isPresent() && tokenOptional.isPresent()
 				&& LocalDate.now().isBefore(tokenOptional.get().getExpiryDate())) {
 			UserCredential userPojo = userCredentialPojo.get();

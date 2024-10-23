@@ -66,8 +66,8 @@ public class UserCredentialController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/forgot-password/{username}")
-	public ResponseEntity<?> generateForgotPasswordLink(@PathVariable String username) {
+	@GetMapping("/forgot-password")
+	public ResponseEntity<?> generateForgotPasswordLink(@RequestParam("username") String username) {
 		ForgotPasswordTokenPojo pojo = userCredentialService.generateForgotPasswordToken(username);
 		if (pojo != null) {
 			return new ResponseEntity<>(pojo, HttpStatus.OK);
@@ -75,8 +75,8 @@ public class UserCredentialController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("/verify/forgot-password/{token}")
-	public ResponseEntity<?> verifyForgotPasswordToken(@PathVariable String token) {
+	@GetMapping("/verify/forgot-password")
+	public ResponseEntity<?> verifyForgotPasswordToken(@RequestParam("token") String token) {
 		String username = userCredentialService.verifyToken(token);
 		if (username != null) {
 			return new ResponseEntity<>(Map.entry("username", username), HttpStatus.OK);
@@ -85,9 +85,9 @@ public class UserCredentialController {
 	}
 
 	@PostMapping("/reset/password")
-	public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestBody ResetPassword resetPassword) {
+	public ResponseEntity<?> resetPassword(@RequestParam("token") String token, @RequestBody ResetPassword resetPassword) {
 		resetPassword.setPassword(passwordEncoder.encode(resetPassword.getPassword()));
-		boolean succeed = userCredentialService.resetPassword(token, resetPassword);
+		boolean succeed = userCredentialService.resetPassword(token,resetPassword);
 		if (succeed) {
 			return new ResponseEntity<>(Map.entry("message", "Reset Password Successfully"), HttpStatus.OK);
 		}
@@ -95,8 +95,9 @@ public class UserCredentialController {
 				HttpStatus.BAD_REQUEST);
 	}
 
+	
 	@GetMapping("/validate/token")
-	public ResponseEntity<?> validateJwtToken(@RequestParam String token) {
+	public ResponseEntity<?> validateJwtToken(@RequestParam("token") String token) {
 		return new ResponseEntity<>(userCredentialService.validateToken(token), HttpStatus.OK);
 	}
 
