@@ -87,7 +87,7 @@ public class UserCredentialService {
 			mailMessagePojo.setSubject("Account Recovery");
 			mailMessagePojo.setBody("Use this link for the account recovery. http://localhost:5173/auth/reset-password?token="+token);
 			//Uncomment this in Production
-			mailClient.sendMailMessage(mailMessagePojo);
+//			mailClient.sendMailMessage(mailMessagePojo);
 			return pojo;
 		}
 		return null;
