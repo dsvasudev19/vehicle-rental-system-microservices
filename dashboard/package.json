@@ -19,9 +19,10 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.27.0",
+    "react-spinners": "^0.14.1",
     "yup": "^1.4.0"
   },
-  "proxy":"http://localhost:5173",
+  "proxy": "http://localhost:5173",
   "devDependencies": {
     "@eslint/js": "^9.11.1",
     "@types/react": "^18.3.11",

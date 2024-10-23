@@ -13,10 +13,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.project.authentication_service.client.MailClient;
 import com.project.authentication_service.entity.ForgotPasswordToken;
 import com.project.authentication_service.entity.Role;
 import com.project.authentication_service.entity.UserCredential;
 import com.project.authentication_service.models.ForgotPasswordTokenPojo;
+import com.project.authentication_service.models.JavaMailMessagePojo;
 import com.project.authentication_service.models.ResetPassword;
 import com.project.authentication_service.models.RolePojo;
 import com.project.authentication_service.models.UserCredentialPojo;
@@ -29,6 +31,9 @@ public class UserCredentialService {
 
 	@Autowired
 	private JwtService jwtService;
+	
+	@Autowired
+	private MailClient mailClient;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -74,9 +79,15 @@ public class UserCredentialService {
 			forgotPasswordToken.setUsername(username);
 			forgotPasswordToken.setToken(token);
 			forgotPasswordToken.setExpiryDate(LocalDate.now().plusDays(1));
-			tokenRepository.save(forgotPasswordToken);
+			ForgotPasswordToken token2=tokenRepository.save(forgotPasswordToken);
 			ForgotPasswordTokenPojo pojo = new ForgotPasswordTokenPojo();
 			BeanUtils.copyProperties(forgotPasswordToken, pojo);
+			JavaMailMessagePojo mailMessagePojo=new JavaMailMessagePojo();
+			mailMessagePojo.setTo(username);
+			mailMessagePojo.setSubject("Account Recovery");
+			mailMessagePojo.setBody("Use this link for the account recovery. http://localhost:5173/auth/reset-password?token="+token);
+			//Uncomment this in Production
+			mailClient.sendMailMessage(mailMessagePojo);
 			return pojo;
 		}
 		return null;

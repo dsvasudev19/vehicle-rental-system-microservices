@@ -2,18 +2,23 @@ import  { useEffect, useState } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import toast from "../../node_modules/react-hot-toast/dist/index";
 import { CircleCheckBig,Trash2 } from "lucide-react";
+import ClockLoader from "react-spinners/ClockLoader";
 
 const Support = () => {
   const [enquiries, setEnquiries] = useState<any[]>([]);
+  const [loading,setLoading]=useState<any>(false)
 
   const getAllEnquiries = async () => {
     try {
+      setLoading(true)
       const res = await axiosInstance.get("/support/enquiries");
       if (res.status === 200) {
         setEnquiries(res.data);
       }
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -45,14 +50,17 @@ const Support = () => {
   }, []);
 
   return (
-    <div>
-      <div className="relative overflow-x-auto">
+    <div className="w-full h-full">
+      <div className="relative overflow-x-auto w-full h-full">
         <div className="flex justify-between mt-3 mb-3">
           <h1 className="text-2xl capitalize font-semibold text-gray-900">
             Enquiry Management
           </h1>
         </div>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        {
+          loading ? ( <div className="flex justify-center text-center items-center w-full !h-[90%]">
+          <ClockLoader color="#085387" size={200} />
+        </div>):(<table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -117,7 +125,8 @@ const Support = () => {
               );
             })}
           </tbody>
-        </table>
+        </table>)
+        }
       </div>
     </div>
   );
