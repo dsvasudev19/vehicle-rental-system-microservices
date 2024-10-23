@@ -1,27 +1,37 @@
 import { Outlet } from "react-router-dom";
-import { BadgeIndianRupee, CarFront, ChartNoAxesColumnDecreasing, CreditCard, LayoutDashboard, SquarePen, UserCog, Users,Tickets } from "lucide-react";
+import {
+  BadgeIndianRupee,
+  CarFront,
+  ChartNoAxesColumnDecreasing,
+  CreditCard,
+  LayoutDashboard,
+  SquarePen,
+  UserCog,
+  Users,
+  Tickets,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Dashboard = () => {
-  const [path,setPath]=useState<any>("");
+  const [path, setPath] = useState<any>("");
 
-  useEffect(()=>{
-    const route=window.location.pathname;
-    setPath(route)
-  })
+  useEffect(() => {
+    const route = window.location.pathname;
+    setPath(route);
+  });
 
   return (
     <div className="w-full h-screen">
       <button
-        data-drawer-target="default-sidebar"
-        data-drawer-toggle="default-sidebar"
-        aria-controls="default-sidebar"
+        data-drawer-target="sidebar-multi-level-sidebar"
+        data-drawer-toggle="sidebar-multi-level-sidebar"
+        aria-controls="sidebar-multi-level-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
-        <span className="sr-only">Open sidebar</span>
+        <span class="sr-only">Open sidebar</span>
         <svg
-          className="w-6 h-6"
+          class="w-6 h-6"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -36,7 +46,7 @@ const Dashboard = () => {
       </button>
 
       <aside
-        id="default-sidebar"
+        id="sidebar-multi-level-sidebar"
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
@@ -46,7 +56,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/home"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/home" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/home"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <LayoutDashboard />
@@ -57,7 +69,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/vendors"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/vendors" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/vendors"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <UserCog />
@@ -68,7 +82,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/bookings"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/bookings" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/bookings"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <ChartNoAxesColumnDecreasing />
@@ -79,7 +95,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/users"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/users" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/users"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <Users />
@@ -90,7 +108,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/vehicles"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/vehicles" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/vehicles"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <CarFront />
@@ -101,7 +121,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/coupons"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/coupons" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/coupons"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <CreditCard />
@@ -113,7 +135,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/transactions"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/transactions" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/transactions"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <BadgeIndianRupee />
@@ -126,7 +150,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/reviews"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/reviews" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/reviews"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <SquarePen />
@@ -137,7 +163,9 @@ const Dashboard = () => {
               <a
                 href="/dashboard/support"
                 className={`flex items-center p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group ${
-                  path === "/dashboard/support" ? "bg-gray-700 text-white hover:bg-gray-700" : "hover:bg-gray-200"
+                  path === "/dashboard/support"
+                    ? "bg-gray-700 text-white hover:bg-gray-700"
+                    : "hover:bg-gray-200"
                 }`}
               >
                 <Tickets />
@@ -149,9 +177,7 @@ const Dashboard = () => {
       </aside>
 
       <div className="p-1 sm:ml-64 h-screen bg-gray-300 overflow-auto">
-      
         <Outlet />
-        
 
         {/* <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 h-full">
           <Outlet />
