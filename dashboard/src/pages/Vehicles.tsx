@@ -125,7 +125,7 @@ const Vehicles = () => {
                           setVehicleId(vehicle?.id);
                         }}
                       >
-                        <Pencil />
+                        <Pencil className="cursor-pointer hover:text-green-700"/>
                       </a>
                       <a
                         onClick={() => {
@@ -133,7 +133,7 @@ const Vehicles = () => {
                           deleteVehicle(vehicleId);
                         }}
                       >
-                        <Trash2 />
+                        <Trash2 className="cursor-pointer hover:text-red-700"/>
                       </a>
                     </td>
                   </tr>
@@ -143,7 +143,7 @@ const Vehicles = () => {
           </table>
         )}
       </div>
-      {showModal && <AddVehicle openModal={showModal} close={closeModal} />}
+      {showModal && <AddVehicle openModal={showModal} close={closeModal} getVehicles={getAllVehicles}/>}
     </div>
   );
 };

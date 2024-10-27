@@ -20,6 +20,9 @@ public class BookingPojo {
     private long userId;
     private long vehicleId;
     private String status;
+	private String name;
+	private String email;
+	private String phone;
 	private UserPojo user;
     
 	private VehiclePojo vehicle;

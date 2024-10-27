@@ -1,1 +1,436 @@
-<p>vehicle-details works!</p>
+<div class="bg-white">
+  <main
+    class="mx-auto px-4 pb-24 pt-14 sm:px-6 sm:pb-32 sm:pt-16 lg:max-w-7xl lg:px-8"
+  >
+    <div
+      class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16"
+    >
+      <div class="lg:col-span-4 lg:row-end-1">
+        <div
+          class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100 object-contain"
+        >
+          <img
+            class="object-contain"
+            src="https://images.news18.com/ibnlive/uploads/2022/04/yamaha-fz-s-fi-165096716716x9.jpg"
+          />
+        </div>
+      </div>
+
+      <div
+        class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none"
+      >
+        <div class="flex flex-col-reverse">
+          <div class="mt-4">
+            <h1
+              *ngIf="vehicleDetails"
+              class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"
+            >
+              {{ vehicleDetails.name }}
+            </h1>
+
+            <p class="mt-2 text-sm text-gray-500" *ngIf="vehicleDetails">
+              {{ vehicleDetails.type }}
+            </p>
+          </div>
+
+          <div *ngIf="vehicleDetails?.reviews">
+            <h3 class="sr-only">Reviews</h3>
+            <div class="flex items-center">
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-yellow-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <svg
+                class="h-5 w-5 flex-shrink-0 text-gray-300"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                data-slot="icon"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <p class="sr-only">4 out of 5 stars</p>
+          </div>
+        </div>
+
+        <p class="mt-6 text-gray-500">
+          {{ vehicleDetails?.description }}
+        </p>
+
+        <ul>
+          <li class="flex gap-1 p-1">
+            <svg
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M9 12L11 14L15 10M12 3L13.9101 4.87147L16.5 4.20577L17.2184 6.78155L19.7942 7.5L19.1285 10.0899L21 12L19.1285 13.9101L19.7942 16.5L17.2184 17.2184L16.5 19.7942L13.9101 19.1285L12 21L10.0899 19.1285L7.5 19.7942L6.78155 17.2184L4.20577 16.5L4.87147 13.9101L3 12L4.87147 10.0899L4.20577 7.5L6.78155 6.78155L7.5 4.20577L10.0899 4.87147L12 3Z"
+                  stroke="#000000"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </svg>
+            Verified Registration Certificate
+          </li>
+          <li class="flex gap-1 p-1">
+            <svg
+              fill="#000000"
+              class="w-6 h-6"
+              viewBox="0 0 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <title></title>
+                <g data-name="Layer 12" id="Layer_12">
+                  <path
+                    d="M25.41,7.09l-9-4a1,1,0,0,0-.82,0l-9,4A1,1,0,0,0,6,8v8.56A8.69,8.69,0,0,0,8.91,23l6.43,5.71a1,1,0,0,0,1.32,0L23.09,23A8.69,8.69,0,0,0,26,16.56V8A1,1,0,0,0,25.41,7.09ZM24,16.56a6.67,6.67,0,0,1-2.24,5L16,26.66l-5.76-5.12a6.67,6.67,0,0,1-2.24-5V8.65l8-3.56,8,3.56Z"
+                  ></path>
+                  <path
+                    d="M13,14.29a1,1,0,0,0-1.42,1.42l2.5,2.5a1,1,0,0,0,1.42,0l5-5A1,1,0,0,0,19,11.79l-4.29,4.3Z"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+            Secure Payment Options
+          </li>
+        </ul>
+
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+          <button
+            type="button"
+            class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+            [routerLink]="['/checkout']"
+            [queryParams]="{
+              vehicle: vehicleDetails?.name,
+              vehicleId: vehicleDetails?.vehicleId
+            }"
+            routerLinkActive="router-link-active"
+          >
+            Book Now
+          </button>
+          <button
+            type="button"
+            class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+          >
+            Pay {{ vehicleDetails?.pricePerHr | currency : "INR" }} /Hr
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none"
+      >
+        <div>
+          <div class="border-b border-gray-200">
+            <div
+              class="-mb-px flex space-x-8"
+              aria-orientation="horizontal"
+              role="tablist"
+            >
+              <button
+                id="tab-reviews"
+                class="whitespace-nowrap border-b-2 border-transparent py-6 text-sm font-medium text-gray-700 hover:border-gray-300 hover:text-gray-800"
+                aria-controls="tab-panel-reviews"
+                role="tab"
+                type="button"
+              >
+                Customer Reviews
+              </button>
+            </div>
+          </div>
+
+          <div
+            id="tab-panel-reviews"
+            class="-mb-10"
+            aria-labelledby="tab-reviews"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <h3 class="sr-only">Customer Reviews</h3>
+            <div>
+              <label
+                for="review"
+                class="block text-sm font-medium leading-6 text-gray-900"
+                >Post a Review</label
+              >
+              <div class="mt-2 flex rounded-md shadow-sm">
+                <div
+                  class="relative flex flex-grow items-stretch focus-within:z-10"
+                >
+                  <div
+                    class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                  >
+                    <svg
+                    class="pr-2"
+                      fill="#000000"
+                      width="32px"
+                      height="32px"
+                      viewBox="-8.32 -8.32 80.64 80.64"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <g data-name="37 rating" id="_37_rating">
+                          <path
+                            d="M42.83,3.5H21.17a6,6,0,0,0-6,6V28.66a6,6,0,0,0,6,6H23.4l7.84,9.23a1,1,0,0,0,1.1.29.992.992,0,0,0,.66-.94V34.66h9.83a6,6,0,0,0,6-6V9.5A6,6,0,0,0,42.83,3.5Zm4,25.16a4,4,0,0,1-4,4H32a1,1,0,0,0-1,1v6.86l-6.38-7.51a1.011,1.011,0,0,0-.76-.35H21.17a4,4,0,0,1-4-4V9.5a4,4,0,0,1,4-4H42.83a4,4,0,0,1,4,4Z"
+                          ></path>
+                          <path
+                            d="M44.66,10.75a1,1,0,0,1-1,1H20.34a1,1,0,0,1,0-2H43.66A1,1,0,0,1,44.66,10.75Z"
+                          ></path>
+                          <path
+                            d="M44.66,14.92a1,1,0,0,1-1,1H20.34a1,1,0,0,1,0-2H43.66A.99.99,0,0,1,44.66,14.92Z"
+                          ></path>
+                          <path
+                            d="M44.66,19.08a1,1,0,0,1-1,1H20.34a1,1,0,0,1,0-2H43.66A1,1,0,0,1,44.66,19.08Z"
+                          ></path>
+                          <path
+                            d="M44.66,23.25a1,1,0,0,1-1,1H28.67a1,1,0,0,1,0-2H43.66A.99.99,0,0,1,44.66,23.25Z"
+                          ></path>
+                          <path
+                            d="M44.66,27.41a1,1,0,0,1-1,1H28.67a1,1,0,0,1,0-2H43.66A1,1,0,0,1,44.66,27.41Z"
+                          ></path>
+                          <path
+                            d="M18.65,46.55a1.009,1.009,0,0,0-.95-.69H13.57l-1.28-3.93a1,1,0,0,0-1.9,0L9.11,45.86H4.98a1,1,0,0,0-.59,1.81L7.73,50.1,6.46,54.02a1,1,0,0,0,.95,1.31A1.01,1.01,0,0,0,8,55.14l3.34-2.43,3.34,2.43a1,1,0,0,0,1.54-1.11L14.94,50.1l3.35-2.43A1.012,1.012,0,0,0,18.65,46.55Zm-5.83,3.47.55,1.7-1.44-1.05a.99.99,0,0,0-1.18,0L9.31,51.72l.55-1.7a.992.992,0,0,0-.36-1.11L8.06,47.86H9.84a1.009,1.009,0,0,0,.95-.69l.55-1.7.55,1.7a1,1,0,0,0,.95.69h1.78l-1.44,1.05A.977.977,0,0,0,12.82,50.02Z"
+                          ></path>
+                          <path
+                            d="M39.31,51.71a1,1,0,0,0-.95-.69H34.23l-1.28-3.93a1,1,0,0,0-1.9,0l-1.28,3.93H25.64a1,1,0,0,0-.59,1.81l3.35,2.43-1.28,3.93a1.012,1.012,0,0,0,.36,1.12,1.022,1.022,0,0,0,1.18,0L32,57.88l3.34,2.43a1.011,1.011,0,0,0,1.18,0,1.012,1.012,0,0,0,.36-1.12L35.6,55.26l3.35-2.43A1,1,0,0,0,39.31,51.71Zm-5.83,3.48.55,1.69-1.44-1.05a1.011,1.011,0,0,0-1.18,0l-1.44,1.05.55-1.69a.992.992,0,0,0-.36-1.12l-1.44-1.05H30.5a1,1,0,0,0,.95-.69L32,50.64l.55,1.69a1,1,0,0,0,.95.69h1.78l-1.44,1.05A.992.992,0,0,0,33.48,55.19Z"
+                          ></path>
+                          <path
+                            d="M59.97,46.55a.991.991,0,0,0-.95-.69H54.89l-1.28-3.93a1,1,0,0,0-1.9,0l-1.28,3.93H46.3a1,1,0,0,0-.59,1.81l3.35,2.43-1.28,3.93a1,1,0,0,0,1.54,1.11l3.34-2.43L56,55.14a1.01,1.01,0,0,0,.59.19.967.967,0,0,0,.59-.19.987.987,0,0,0,.36-1.12L56.27,50.1l3.34-2.43A1,1,0,0,0,59.97,46.55Zm-5.83,3.47.55,1.7-1.44-1.05a.988.988,0,0,0-.59-.19,1.01,1.01,0,0,0-.59.19l-1.44,1.05.55-1.7a.977.977,0,0,0-.36-1.11l-1.44-1.05h1.78a1,1,0,0,0,.95-.69l.55-1.7.55,1.7a1.009,1.009,0,0,0,.95.69h1.78L54.5,48.91A.992.992,0,0,0,54.14,50.02Z"
+                          ></path>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    name="review"
+                    id="review"
+                    class="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Worth renting this Vehicle......"
+                    [(ngModel)]="content"
+                  />
+                </div>
+                <button
+                  type="button"
+                  (click)="postReview()"
+                  class="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                >
+                  <svg
+                    class="-ml-0.5 h-5 w-5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    data-slot="icon"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 3.75A.75.75 0 0 1 2.75 3h11.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 3.75ZM2 7.5a.75.75 0 0 1 .75-.75h6.365a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 7.5ZM14 7a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02l-1.95-2.1v6.59a.75.75 0 0 1-1.5 0V9.66l-1.95 2.1a.75.75 0 1 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 14 7ZM2 11.25a.75.75 0 0 1 .75-.75H7A.75.75 0 0 1 7 12H2.75a.75.75 0 0 1-.75-.75Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Post
+                </button>
+              </div>
+            </div>
+
+            <div *ngFor="let review of vehicleDetails?.reviews">
+              <div class="flex space-x-4 text-sm text-gray-500">
+                <div class="flex-none py-10">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png"
+                    alt=""
+                    class="h-10 w-10 rounded-full bg-gray-100"
+                  />
+                </div>
+                <div class="flex-1 py-10">
+                  <div class="flex gap-6">
+                    <h3 class="font-medium text-gray-900">{{review?.username}}</h3>
+
+                    <div class="flex items-center">
+                      <ng-container
+                        *ngFor="
+                          let star of [].constructor(review.rating);
+                          let i = index
+                        "
+                      >
+                        <svg
+                          class="h-5 w-5 flex-shrink-0 text-yellow-400"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </ng-container>
+                      <ng-container
+                        *ngFor="
+                          let star of [].constructor(5 - review.rating);
+                          let i = index
+                        "
+                      >
+                        <svg
+                          class="h-5 w-5 flex-shrink-0 text-gray-300"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="prose prose-sm mt-4 max-w-none text-gray-500">
+                    <p>
+                      This icon pack is just what I need for my latest project.
+                      There's an icon for just about anything I could ever need.
+                      Love the playful look!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="mx-auto mt-24 max-w-2xl sm:mt-32 lg:max-w-none">
+      <div class="flex items-center justify-between space-x-4">
+        <h2 class="text-lg font-medium text-gray-900">Customers also viewed</h2>
+        <a
+          href="/vehicle-listing"
+          class="whitespace-nowrap text-sm font-medium text-indigo-600 hover:text-indigo-500"
+        >
+          View all
+          <span aria-hidden="true"> &rarr;</span>
+        </a>
+      </div>
+      <div
+        class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4"
+      >
+        <div
+          class="group relative"
+          *ngFor="let product of sameLocationVehicles"
+        >
+          <div
+            class="aspect-h-3 aspect-w-4 overflow-hidden rounded-lg bg-gray-100"
+          >
+            <img
+              src="https://www.bossrides.in/wp-content/uploads/2023/03/kawasaki-ninja-zx10r-1-min-scaled-1.jpg"
+              alt="Payment application dashboard screenshot with transaction table, financial highlights, and main clients on colorful purple background."
+              class="object-cover object-center"
+            />
+            <div
+              class="flex items-end p-4 opacity-0 group-hover:opacity-100"
+              aria-hidden="true"
+            >
+              <div
+                class="w-full rounded-md bg-white bg-opacity-75 px-4 py-2 text-center text-sm font-medium text-gray-900 backdrop-blur backdrop-filter"
+                (click)="changeIdAndGetVehicle(product.vehicleId)"
+              >
+                View Product
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900"
+          >
+            <h3>
+              <a href="#">
+                <span aria-hidden="true" class="absolute inset-0"></span>
+                {{ product.name }}
+              </a>
+            </h3>
+            <p>{{ product.pricePerHr | currency : "INR" }}</p>
+          </div>
+          <p class="mt-1 text-sm text-gray-500">{{ product.type }}</p>
+        </div>
+      </div>
+    </div> -->
+  </main>
+</div>

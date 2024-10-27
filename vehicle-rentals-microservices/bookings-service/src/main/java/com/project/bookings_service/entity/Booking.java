@@ -24,6 +24,9 @@ public class Booking {
 	private double duartionHours;
 	private double price;
 	private long userId;
+	private String name;
+	private String email;
+	private String phone;
 	private long vehicleId;
 	private String status;
 	@PrePersist

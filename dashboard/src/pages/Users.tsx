@@ -101,7 +101,7 @@ const Users = () => {
                         }}
                         className="cursor-pointer"
                       >
-                        <Trash2 />
+                        <Trash2 className="hover:text-red-700" />
                       </a>
                     </td>
                   </tr>

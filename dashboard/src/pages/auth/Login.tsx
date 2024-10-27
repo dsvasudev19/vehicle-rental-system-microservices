@@ -28,8 +28,8 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem('__auth', response.data.token);
         window.location.href = '/dashboard/home';
-        resetForm();
         toast.success('Login successful!');
+        resetForm();
       }
     } catch (error) {
       console.log(error)

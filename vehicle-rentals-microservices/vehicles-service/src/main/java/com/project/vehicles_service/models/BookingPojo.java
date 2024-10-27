@@ -4,6 +4,13 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 
 public class BookingPojo {
 	private long bookingId;
@@ -15,6 +22,11 @@ public class BookingPojo {
 	private String status;
 	private long userId;
 	private long vehicleId;
+	
+	private String name;
+	private String email;
+	private String phone;
+	
 	private UserPojo user;
 
 	private VehiclePojo vehicle;

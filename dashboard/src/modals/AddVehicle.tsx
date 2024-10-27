@@ -16,7 +16,7 @@ const formValidation = Yup.object().shape({
   vendorId: Yup.string().required("Vendor is required"),
 });
 
-const AddVehicle = ({ openModal, close }: any) => {
+const AddVehicle = ({ openModal, close,getVehicles }: any) => {
   const [showModal, setShowModal] = useState(openModal);
   const [vendors, setVendors] = useState<any[]>([]);
 
@@ -48,6 +48,7 @@ const AddVehicle = ({ openModal, close }: any) => {
       if (res.status === 200) {
         toast.success("Vehicle Added Successfully");
         resetForm();
+        getVehicles()
       }
     } catch (error) {
       console.log(error);

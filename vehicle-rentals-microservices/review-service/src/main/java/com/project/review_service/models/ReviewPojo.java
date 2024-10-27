@@ -15,6 +15,7 @@ public class ReviewPojo {
 	private long id;
 	private long vehicleId;
 	private long userId;
+	private String username;
 	private int rating;
 	private String content;
 	private Date postedOn;

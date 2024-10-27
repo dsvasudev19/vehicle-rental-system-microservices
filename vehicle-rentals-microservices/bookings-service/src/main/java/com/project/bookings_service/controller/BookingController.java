@@ -1,6 +1,7 @@
 package com.project.bookings_service.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,6 @@ import com.project.bookings_service.client.VehicleClient;
 import com.project.bookings_service.model.BookingPojo;
 import com.project.bookings_service.model.JavaMailMessagePojo;
 import com.project.bookings_service.model.TransactionPojo;
-import com.project.bookings_service.model.UserPojo;
 import com.project.bookings_service.model.VehiclePojo;
 import com.project.bookings_service.service.BookingService;
 
@@ -77,7 +77,7 @@ public class BookingController {
 
 	@PostMapping
 	public ResponseEntity<?> addBooking(@RequestBody BookingPojo bookingPojo) throws Exception {
-		UserPojo userPojo = userClient.getAUser(bookingPojo.getUserId());
+//		UserPojo userPojo = userClient.getAUser(bookingPojo.getUserId());
 		VehiclePojo vehiclePojo = vehicleClient.getVehicleById(bookingPojo.getVehicleId());
 		BookingPojo pojo = bookingService.addBooking(bookingPojo);
 		if (pojo != null) {
@@ -90,13 +90,17 @@ public class BookingController {
 
 			// Sending Confirmation Mail to the User
 			JavaMailMessagePojo messagePojo = new JavaMailMessagePojo();
-			messagePojo.setTo(userPojo.getEmail());
+			messagePojo.setTo(bookingPojo.getEmail());
 			messagePojo.setSubject("Status of your Recent Booking");
 			messagePojo.setBody("Your Booking of " + vehiclePojo.getName() + " from Date: " + bookingPojo.getFromDate()
 					+ " to Date: " + bookingPojo.getToDate() + " is Confirmed. Your Booking Id: "
 					+ pojo.getBookingId());
-			mailClient.sendMailMessage(messagePojo);
-			return new ResponseEntity<BookingPojo>(pojo, HttpStatus.CREATED);
+//			mailClient.sendMailMessage(messagePojo);
+			Map<String, Object> response = Map.ofEntries(
+		            Map.entry("booking", pojo),
+		            Map.entry("transaction", payment)
+		        );
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		}
 		return ResponseEntity.noContent().build();
 	}

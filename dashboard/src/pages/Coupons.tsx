@@ -127,7 +127,7 @@ const Coupons = () => {
                           blockTheCoupon(coupon?.id);
                         }}
                       >
-                        <Ban />
+                        <Ban className="cursor-pointer hover:text-red-700"/>
                       </a>
                       <a
                         className="cursor-pointer"
@@ -135,7 +135,7 @@ const Coupons = () => {
                           deleteTheCoupon(coupon?.id);
                         }}
                       >
-                        <Trash2 />
+                        <Trash2 className="cursor-pointer hover:text-red-500"/>
                       </a>
                     </td>
                   </tr>

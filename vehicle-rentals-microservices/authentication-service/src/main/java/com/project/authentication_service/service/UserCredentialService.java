@@ -47,13 +47,13 @@ public class UserCredentialService {
 	public UserCredentialPojo registerNewUser(UserCredentialPojo userCredential) {
 		UserCredential user = new UserCredential();
 		BeanUtils.copyProperties(userCredential, user);
-		List<RolePojo> rolesPojo = userCredential.getRoles();
-		List<Role> roles = rolesPojo.stream().map(rolePojo -> {
-			Role role = new Role();
-			BeanUtils.copyProperties(rolePojo, role);
-			return role;
-		}).collect(Collectors.toList());
-		user.setRoles(roles);
+//		List<RolePojo> rolesPojo = userCredential.getRoles();
+//		List<Role> roles = rolesPojo.stream().map(rolePojo -> {
+//			Role role = new Role();
+//			BeanUtils.copyProperties(rolePojo, role);
+//			return role;
+//		}).collect(Collectors.toList());
+//		user.setRoles(roles);
 		userRepository.save(user);
 		user.setPassword(null);
 		UserCredentialPojo pojo = new UserCredentialPojo();

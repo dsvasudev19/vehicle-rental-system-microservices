@@ -26,7 +26,7 @@ import com.project.authentication_service.service.UserCredentialService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:5173", allowedHeaders = "*", allowCredentials = "true")
 public class UserCredentialController {
 
 	@Autowired

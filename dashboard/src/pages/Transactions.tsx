@@ -103,7 +103,7 @@ const Transactions = () => {
                         }}
                         className="cursor-pointer"
                       >
-                        <Trash />
+                        <Trash className="cursor-pointer hover:text-red-700"/>
                       </a>
                     </td>
                   </tr>

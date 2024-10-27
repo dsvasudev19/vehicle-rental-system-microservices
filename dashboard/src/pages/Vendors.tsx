@@ -132,7 +132,7 @@ const Vendors = () => {
                         }}
                         className="cursor-pointer"
                       >
-                        <Pencil />
+                        <Pencil className="hover:text-green-700" />
                       </a>
                       <a
                         onClick={() => {
@@ -141,7 +141,7 @@ const Vendors = () => {
                         }}
                         className="cursor-pointer"
                       >
-                        <Trash2 />
+                        <Trash2 className="hover:text-red-700"/>
                       </a>
                     </td>
                   </tr>

@@ -12,15 +12,21 @@ import lombok.NoArgsConstructor;
 
 
 public class BookingPojo {
-		private long id;
-		private long vehicleId;
-		private long userId;
-		private LocalDateTime bookingDate;
-		private LocalDateTime fromDate;
-		private LocalDateTime toDate;
-		private double durationHrs;
-		private double price;
-		private LocalDateTime createDate;
-		private String status;
+	private long bookingId;
+	private LocalDateTime bookingDate;
+	private LocalDateTime from;
+	private LocalDateTime toDestination;
+	private double duartionHours;
+	private double price;
+	private String status;
+	private long userId;
+	private long vehicleId;
+	
+	private String name;
+	private String email;
+	private String phone;
+
+
+	private VehiclePojo vehicle;
 		
 }

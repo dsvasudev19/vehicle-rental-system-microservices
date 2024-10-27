@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.aspectj.weaver.NewConstructorTypeMunger;
-import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,18 +20,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.project.vehicles_service.ipc.BookingClient;
 import com.project.vehicles_service.ipc.ReviewClient;
-import com.project.vehicles_service.models.BookingPojo;
 import com.project.vehicles_service.models.ReviewPojo;
 import com.project.vehicles_service.models.VehiclePojo;
 import com.project.vehicles_service.service.VehicleService;
+
+
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {
 
 	private static final String UPLOAD_DIR = "uploads/";
+	
+	@Value("${CLOUDINARY_URL}")
+	String cloudinaryUrl;
 
 	@Autowired
 	private VehicleService vehicleService;
@@ -114,8 +121,16 @@ public class VehicleController {
 		vehiclePojo.setPricePerHr(pricePerHr);
 
 		String currentDir = System.getProperty("user.dir");
+		
+		
+		Cloudinary cloudinary = new Cloudinary(cloudinaryUrl);
+		System.out.println(cloudinary.config.cloudName);
+		
 		if (file != null && !file.isEmpty()) {
 			try {
+				Map<String, Object> uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+				System.out.println(uploadResult);
+				System.out.println("uploaded");
 				File uploadDirectory = new File(UPLOAD_DIR);
 				if (!uploadDirectory.exists()) {
 					uploadDirectory.mkdirs();
