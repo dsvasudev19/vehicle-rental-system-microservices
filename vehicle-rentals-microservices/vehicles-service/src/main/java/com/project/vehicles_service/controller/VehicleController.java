@@ -128,18 +128,18 @@ public class VehicleController {
 		
 		if (file != null && !file.isEmpty()) {
 			try {
-				Map<String, Object> uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-				System.out.println(uploadResult);
-				System.out.println("uploaded");
-				File uploadDirectory = new File(UPLOAD_DIR);
-				if (!uploadDirectory.exists()) {
-					uploadDirectory.mkdirs();
-				}
-				String fileName = UPLOAD_DIR + System.currentTimeMillis() + "-" + file.getOriginalFilename();
-
-				String filePath = Paths.get(currentDir, fileName).toString();
-				file.transferTo(new File(filePath));
-				vehiclePojo.setImagePath(filePath);
+				Map<String, Object> uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+				System.out.println(uploadResult.get("secure_url"));
+//				System.out.println("uploaded");
+//				File uploadDirectory = new File(UPLOAD_DIR);
+//				if (!uploadDirectory.exists()) {
+//					uploadDirectory.mkdirs();
+//				}
+//				String fileName = UPLOAD_DIR + System.currentTimeMillis() + "-" + file.getOriginalFilename();
+//
+//				String filePath = Paths.get(currentDir, fileName).toString();
+//				file.transferTo(new File(filePath));
+				vehiclePojo.setImagePath((String) uploadResult.get("secure_url"));
 
 			} catch (IOException e) {
 				e.printStackTrace();
