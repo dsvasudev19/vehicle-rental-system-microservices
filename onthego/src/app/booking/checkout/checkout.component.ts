@@ -13,11 +13,8 @@ declare var Razorpay: any;
 })
 export class CheckoutComponent implements OnInit {
   bookingForm: FormGroup = new FormGroup({});
-
   vehicleDetails:any=null;
-
   couponRetrieved: any = null;
-
   minDateTime: string | null = new Date().toISOString().slice(0, 16);
   currentStep: number = 1;
   price: number = 0;
@@ -25,6 +22,8 @@ export class CheckoutComponent implements OnInit {
   vehicle: string | null = null;
   validCoupon: boolean = true;
   discountedPrice: number | null = null;
+  paymentLoading:boolean=false;
+  paymentStatusText:string=""
 
   constructor(
     private router: Router,
@@ -45,7 +44,6 @@ export class CheckoutComponent implements OnInit {
       price: [this.price],
       vehicleId: [this.vehicleId],
       minDateTime: [this.minDateTime],
-      coupon: [''],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
@@ -122,8 +120,13 @@ export class CheckoutComponent implements OnInit {
   }
 
   checkout(): void {
+    this.paymentLoading=true;
+    this.paymentStatusText="Redirecting to Payment Gateway......."
+    console.log(this.bookingForm.value)
+    console.warn(this.bookingForm.valid)
+
     if (this.bookingForm.valid) {
-      if(this.discountedPrice){
+      if(this?.discountedPrice!==null && this.discountedPrice > 0){
         this.bookingForm.patchValue({
           price: this.discountedPrice,
         })
@@ -131,16 +134,23 @@ export class CheckoutComponent implements OnInit {
       this.bookingService.createNewBooking(this.bookingForm.value).subscribe({
         next: (data) => {
           console.log(data);
-          this.paymentCheckout(data);
+          this.paymentStatusText="Please wait....Confirming Payment."
+          this.paymentCheckout(data,this.paymentLoading);
         },
         error: (error) => {
           console.log(error);
+          this.paymentLoading=false
         },
+        complete:()=>{
+          this.paymentStatusText=""
+          this.paymentLoading=false
+        }
       });
     }
   }
 
-  paymentCheckout(data: any): void {
+  paymentCheckout(data: any,paymentLoading:any): void {
+    this.paymentLoading=true
     var options = {
       key: 'rzp_test_alc9PznICVvKQb',
       amount: data.transaction.amount,
@@ -151,6 +161,7 @@ export class CheckoutComponent implements OnInit {
       order_id: data.transaction.orderId,
       handler: function (response: any) {
        alert("Success")
+       paymentLoading=false
        setTimeout(()=>{
         window.location.href="/"
        },2000)
