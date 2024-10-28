@@ -11,10 +11,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path: '',component: HomeComponent,},
-  {path: 'vehicle-listing',component: VehicleListingComponent,},
+  {path: 'vehicle-listing',component: VehicleListingComponent,canActivate:[AuthGuard]},
   {path:'details/:id',component:VehicleDetailsComponent},
   {path: 'vehicle-details/:id',component: VehicleDetailsComponent,},
   {path: 'user-profile',component: UserProfileComponent,},

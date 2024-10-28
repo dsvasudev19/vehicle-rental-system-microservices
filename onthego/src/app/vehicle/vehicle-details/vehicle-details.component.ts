@@ -10,11 +10,12 @@ import { VehicleService } from '../vehicle.service';
 })
 export class VehicleDetailsComponent implements OnInit {
   vehicleDetails: Vehicle | null = null;
-  vehicleId:number | null = null;
+  vehicleId: number | null = null;
   loading: boolean = false;
   sameLocationVehicles: Vehicle[] = [];
-  content:string=""
-  rating:number=5
+  showToast: boolean = false;
+  content: string = '';
+  rating: number = 5;
 
   constructor(
     private vehicleService: VehicleService,
@@ -24,7 +25,7 @@ export class VehicleDetailsComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.vehicleId=parseInt(id);
+      this.vehicleId = parseInt(id);
       this.getVehicleById(this.vehicleId);
     }
   }
@@ -34,7 +35,7 @@ export class VehicleDetailsComponent implements OnInit {
     this.vehicleService.getVehicleById(id).subscribe({
       next: (data) => {
         this.vehicleDetails = data;
-        this.getVehiclesByPincode(data.pincode)
+        this.getVehiclesByPincode(data.pincode);
         this.loading = false;
       },
       error: (error) => {
@@ -58,23 +59,34 @@ export class VehicleDetailsComponent implements OnInit {
     });
   }
 
-  changeIdAndGetVehicle(id:number){
-    this.vehicleId=id
-    this.getVehicleById(this.vehicleId)
+  changeIdAndGetVehicle(id: number) {
+    this.vehicleId = id;
+    this.getVehicleById(this.vehicleId);
   }
 
-  postReview(){
+  postReview() {
+    if (this.content) {
+      this.vehicleService
+        .postReviewToVehicle(
+          this.rating,
+          this.content,
+          this.vehicleDetails?.vehicleId,
+          1,
+          ''
+        )
+        .subscribe({
+          next: (data) => {
+            console.log('Successfully Posted');
 
-    if(this.content){
-      this.vehicleService.postReviewToVehicle(this.rating,this.content,this.vehicleDetails?.vehicleId,1,"").subscribe({
-        next:(data)=>{
-          console.log("Successfully Posted")
-          this.getVehicleById(data.vehicleId)
-        },
-        error:(error)=>{
-          console.log(error)
-        }
-      })
+            this.getVehicleById(data.vehicleId);
+
+            this.content = '';
+            // this.showToast=true
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
     }
   }
 }

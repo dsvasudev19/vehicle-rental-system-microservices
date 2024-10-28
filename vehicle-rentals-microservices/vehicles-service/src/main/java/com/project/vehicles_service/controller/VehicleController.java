@@ -99,10 +99,20 @@ public class VehicleController {
 	public ResponseEntity<?> getAllVehiclesByPincode(@PathVariable String pincode) {
 		return new ResponseEntity<>(vehicleService.getAllVehiclesByPincode(pincode), HttpStatus.OK);
 	}
+	
+	@GetMapping("/search/vehicle/{searchString}")
+	public ResponseEntity<?> getAllVehiclesBasedOnSearch(@PathVariable String searchString) {
+		return new ResponseEntity<>(vehicleService.getAllVehiclesBasedOnSearch(searchString), HttpStatus.OK);
+	}
 
 	@GetMapping("/vendor/{vendorId}")
 	public ResponseEntity<?> getAllVehiclesByVendorId(@PathVariable("vendorId") long id) {
 		return new ResponseEntity<>(vehicleService.getVehiclesOfVendor(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/name/{name}")
+	public ResponseEntity<?> getAllVehiclesByName(@PathVariable String name){
+		return new ResponseEntity<>(vehicleService.getAllVehiclesByName(name),HttpStatus.OK);
 	}
 
 	@PostMapping("/add-vehicle")

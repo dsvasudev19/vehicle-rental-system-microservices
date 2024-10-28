@@ -1,7 +1,10 @@
-<div class="bg-white">
+
+<div class="bg-white relative">
+  
   <main
-    class="mx-auto px-4 pb-24 pt-14 sm:px-6 sm:pb-32 sm:pt-16 lg:max-w-7xl lg:px-8"
+    class="mx-autopx-4 pb-24 pt-14 sm:px-6 sm:pb-32 sm:pt-16 lg:max-w-7xl lg:px-8"
   >
+    
     <div
       class="lg:grid lg:grid-cols-7 lg:grid-rows-1 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16"
     >
@@ -11,7 +14,7 @@
         >
           <img
             class="object-contain"
-            src="https://images.news18.com/ibnlive/uploads/2022/04/yamaha-fz-s-fi-165096716716x9.jpg"
+            src={{vehicleDetails?.imagePath}}
           />
         </div>
       </div>
@@ -190,6 +193,7 @@
       <div
         class="mx-auto mt-16 w-full max-w-2xl lg:col-span-4 lg:mt-0 lg:max-w-none"
       >
+     
         <div>
           <div class="border-b border-gray-200">
             <div
@@ -209,9 +213,10 @@
             </div>
           </div>
 
+          
           <div
             id="tab-panel-reviews"
-            class="-mb-10"
+            class="-mb-10 "
             aria-labelledby="tab-reviews"
             role="tabpanel"
             tabindex="0"
@@ -231,7 +236,7 @@
                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
                   >
                     <svg
-                    class="pr-2"
+                      class="pr-2"
                       fill="#000000"
                       width="32px"
                       height="32px"
@@ -320,7 +325,9 @@
                 </div>
                 <div class="flex-1 py-10">
                   <div class="flex gap-6">
-                    <h3 class="font-medium text-gray-900">{{review?.username}}</h3>
+                    <h3 class="font-medium text-gray-900">
+                      {{ review?.username }}
+                    </h3>
 
                     <div class="flex items-center">
                       <ng-container
@@ -366,9 +373,7 @@
 
                   <div class="prose prose-sm mt-4 max-w-none text-gray-500">
                     <p>
-                      This icon pack is just what I need for my latest project.
-                      There's an icon for just about anything I could ever need.
-                      Love the playful look!
+                      {{review.content}}
                     </p>
                   </div>
                 </div>
@@ -433,4 +438,44 @@
       </div>
     </div> -->
   </main>
+</div>
+
+<div *ngIf="showToast" class="w-full absolute top-10 right-0 max-w-sm mx-auto my-2 overflow-hidden rounded shadow-sm">
+  <div
+    class="relative flex items-center justify-between px-2 py-2 font-bold text-white bg-green-500 rounded-t"
+  >
+    <div class="relative flex items-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        class="inline w-6 h-6 mr-2 opacity-75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>Success</span>
+    </div>
+    <span class="relative">
+      <svg
+        class="w-5 h-5 text-green-300 fill-current hover:text-white"
+        role="button"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+      >
+        <title>Close</title>
+        <path
+          d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+        />
+      </svg>
+    </span>
+  </div>
+  <div class="p-3 bg-white border border-gray-300 rounded-b shadow-lg">
+    <span class="block text-gray-600">Review Posted Successfully</span>
+  </div>
 </div>

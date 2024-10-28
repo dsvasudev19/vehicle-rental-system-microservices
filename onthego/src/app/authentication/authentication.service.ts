@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class AuthenticationService {
   private apiUrl: string = environment.baseUrl;
+  
+  private isAuthenticated:boolean=false;
 
   constructor(private http: HttpClient) {}
 
@@ -19,4 +21,9 @@ export class AuthenticationService {
   register(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/auth//user/register', data);
   } 
+
+  checkAuthentication():Observable<any>{
+    let storedToken=localStorage.getItem("__auth")
+    return this.http.get<any>(this.apiUrl+"/auth/validate/token?token="+storedToken)
+  }
 }

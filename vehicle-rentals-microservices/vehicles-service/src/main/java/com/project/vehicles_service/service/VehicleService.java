@@ -106,5 +106,29 @@ public class VehicleService {
 		}).collect(Collectors.toList());
 		return vehicles;
 	}
+	
+	public List<VehiclePojo> getAllVehiclesByName(String name){
+		List<Vehicle> vehiclesFound = vehicleRepository.findByName(name);
+		List<VehiclePojo> vehicles = vehiclesFound.stream().map(vehicle -> {
+			VehiclePojo pojo = new VehiclePojo();
+			BeanUtils.copyProperties(vehicle, pojo);
+			return pojo;
+		}).collect(Collectors.toList());
+		return vehicles;
+	}
+	
+	public List<VehiclePojo> getAllVehiclesBasedOnSearch(String searchString){
+//		List<Vehicle> locationVehicles=vehicleRepository.findByLocation(searchString);
+//		List<Vehicle> pincodeVehicles=vehicleRepository.findByPincode(searchString);
+//		List<Vehicle> nameVehicles=vehicleRepository.findByName(searchString);
+//		List<Vehicle> 
+		List<Vehicle> vehiclesFound=vehicleRepository.searchByCriteria(searchString);
+		List<VehiclePojo> vehicles = vehiclesFound.stream().map(vehicle -> {
+			VehiclePojo pojo = new VehiclePojo();
+			BeanUtils.copyProperties(vehicle, pojo);
+			return pojo;
+		}).collect(Collectors.toList());
+		return vehicles;
+	}
 
 }

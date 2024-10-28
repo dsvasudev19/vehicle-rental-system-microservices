@@ -37,9 +37,14 @@ export class VehicleService {
     return this.http.get<Vehicle[]>(`${this.apiUrl}/vendor/${vendorId}`);
   }
 
+  getVehiclesBasedOnSearchString(searchString:string):Observable<Vehicle[]>{
+    return this.http.get<Vehicle[]>(`${this.apiUrl}/search/vehicle/${searchString}`)
+  }
+
   postReviewToVehicle(rating:number,content:string,vehicleId:any,userId:number,username:string):Observable<any>{
     return this.http.post(environment.baseUrl+"/review",{rating,content,vehicleId,userId,username:""})
   }
+
 
 
 }

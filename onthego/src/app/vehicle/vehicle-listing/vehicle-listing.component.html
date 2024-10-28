@@ -1,43 +1,65 @@
-  <div class="bg-white">
-    <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
-      
-      
-      <div
-        class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
-      >
-        <div 
-          class="group relative shadow-md rounded-md cursor-pointer" 
-          *ngFor="let vehicle of vehicles"
-          [routerLink]="['/vehicle-details',vehicle.vehicleId]"
-        >
-          <div
-            class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-52"
-            
+<div class="bg-white">
+  <div class="mx-auto max-w-2xl px-4 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
+    <div class="block lg:flex justify-between">
+      <div class="">
+        <h1 class="text-xl from-neutral-950 p-3 ps-0 lg:p-0">Ride Your Favourite Vehicle</h1>
+      </div>
+
+      <div class="">
+        <!-- <div>
+            <button class="bg-indigo-400 border-2 w-full h-full p-1 rounded">Filter</button>
+          </div> -->
+        <form (submit)="searchVehicles()" class="flex gap-2 p-3 ps-0 lg:p-0">
+          <input
+            [(ngModel)]="searchString"
+            type="text"
+            id="searchText"
+            name="searchText"
+            placeholder="Search for a Pincode,Location,Vehicle Type,Vehicle name..."
+            required
+            class="p-3 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-96"
+          />
+          <button
+            class="border-2 border-indigo-300 p-1 rounded"
+            type="submit"
+           
           >
-            <img
-            
-              src="https://images.news18.com/ibnlive/uploads/2022/04/yamaha-fz-s-fi-165096716716x9.jpg"
-              alt="{{ vehicle.name }}"
-              class="h-full w-full object-cover lg:h-full lg:w-full"
-              
-            />
+            Search
+          </button>
+        </form>
+      </div>
+    </div>
+    <div
+      class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8"
+    >
+      <div
+        class="group relative shadow-md rounded-md cursor-pointer"
+        *ngFor="let vehicle of vehicles"
+        [routerLink]="['/vehicle-details', vehicle.vehicleId]"
+      >
+        <div
+          class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-52"
+        >
+          <img
+            src="{{ vehicle.imagePath }}"
+            alt="{{ vehicle.name }}"
+            class="h-full w-full object-cover lg:h-full lg:w-full"
+          />
+        </div>
+        <div class="mt-4 flex justify-between p-2">
+          <div>
+            <h3 class="text-md font-semibold text-gray-700">
+              <!-- <a  [href]="'/vehicle-details/' + vehicle.vehicleId"> -->
+              <span aria-hidden="true" class="absolute inset-0"></span>
+              {{ vehicle.name }}
+            </h3>
+            <p class="mt-1 text-sm text-gray-500">{{ vehicle.type }}</p>
           </div>
-          <div class="mt-4 flex justify-between p-2">
-            <div>
-              <h3 class="text-md font-semibold text-gray-700">
-                <!-- <a  [href]="'/vehicle-details/' + vehicle.vehicleId"> -->
-                  <span aria-hidden="true" class="absolute inset-0"></span>
-                  {{ vehicle.name }}
-               
-              </h3>
-              <p class="mt-1 text-sm text-gray-500">{{ vehicle.type }}</p>
-            </div>
-            <p class="text-sm font-medium text-gray-900">
-              {{ vehicle.pricePerHr | currency : "INR" }}/Hr
-            </p>
-          </div>
+          <p class="text-sm font-medium text-gray-900">
+            {{ vehicle.pricePerHr | currency : "INR" }}/Hr
+          </p>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

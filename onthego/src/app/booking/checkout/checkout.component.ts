@@ -40,8 +40,8 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.bookingForm = this.formBuilder.group({
-      fromDate: [new Date().toISOString().slice(0, 16), Validators.required],
-      toDate: [new Date().toISOString().slice(0, 16), Validators.required],
+      fromDate: [null],
+      toDate: [null],
       price: [this.price],
       vehicleId: [this.vehicleId],
       minDateTime: [this.minDateTime],
@@ -150,6 +150,10 @@ export class CheckoutComponent implements OnInit {
       image: 'https://example.com/your_logo',
       order_id: data.transaction.orderId,
       handler: function (response: any) {
+       alert("Success")
+       setTimeout(()=>{
+        window.location.href="/"
+       },2000)
         // These lines needs to be uncommented and need to send an
         // fetch request to verify the status of the payment
         // then redirect the user accordingly
