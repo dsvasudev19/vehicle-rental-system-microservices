@@ -14,17 +14,23 @@ declare var Razorpay: any;
 export class CheckoutComponent implements OnInit {
   bookingForm: FormGroup = new FormGroup({});
 
+  vehicleDetails:any=null;
+
+  couponRetrieved: any = null;
+
   minDateTime: string | null = new Date().toISOString().slice(0, 16);
   currentStep: number = 1;
-  price: number | null = null;
+  price: number = 0;
   vehicleId: number | null = null;
   vehicle: string | null = null;
+  validCoupon: boolean = true;
+  discountedPrice: number | null = null;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private bookingService:BookingService
+    private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -34,16 +40,25 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.bookingForm = this.formBuilder.group({
-      fromDate: [null, Validators.required],
-      toDate: [null, Validators.required],
+      fromDate: [new Date().toISOString().slice(0, 16), Validators.required],
+      toDate: [new Date().toISOString().slice(0, 16), Validators.required],
       price: [this.price],
       vehicleId: [this.vehicleId],
       minDateTime: [this.minDateTime],
-
+      coupon: [''],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
     });
+
+    this.bookingService.getVehicleById(this.vehicleId).subscribe({
+      next:(data)=>{
+        this.vehicleDetails=data;
+      },
+      error:(error)=>{
+        console.log(error)
+      }
+    })
   }
 
   calculatePrice(): void {
@@ -52,9 +67,9 @@ export class CheckoutComponent implements OnInit {
       const stop = new Date(this.bookingForm.value.toDate);
 
       const duration = (stop.getTime() - start.getTime()) / (1000 * 60 * 60);
-      this.price = duration * 100;
+      this.price = duration * this.vehicleDetails.pricePerHr;
       this.bookingForm.patchValue({
-        price: duration * 100
+        price: duration * this.vehicleDetails.pricePerHr,
       });
     }
   }
@@ -79,21 +94,53 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  checkout(): void {
-    if(this.bookingForm.valid){
-      this.bookingService.createNewBooking(this.bookingForm.value).subscribe({
-        next:(data)=>{
-          console.log(data)
-          this.paymentCheckout(data)
-        },
-        error:(error)=>{
-          console.log(error)
-        }
-      })
+  applyCoupon(): void {
+    console.log(this.bookingForm.value);
+    if (this.bookingForm.get('coupon')?.value) {
+      this.validCoupon = true;
+      this.bookingService
+        .getCouponDetails(this.bookingForm.get('coupon')?.value?.toUpperCase())
+        .subscribe({
+          next: (data) => {
+            if (data.type === 'percentage') {
+              let discountCalculated = (data.discount / 100) * this.price;
+              this.discountedPrice=this.price - Math.min(data.maxDiscountValue,this.price-discountCalculated)
+              console.log(discountCalculated,"discount calculated")
+              console.log(this.discountedPrice,"discounted price")
+            }else if(data.type==="flat"){
+              this.discountedPrice=this.price - Math.min(this.price-data.discount,data.maxDiscountValue)
+            }
+            console.log(data);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        });
+    } else {
+      this.validCoupon = false;
     }
   }
 
-  paymentCheckout(data:any):void{
+  checkout(): void {
+    if (this.bookingForm.valid) {
+      if(this.discountedPrice){
+        this.bookingForm.patchValue({
+          price: this.discountedPrice,
+        })
+      }
+      this.bookingService.createNewBooking(this.bookingForm.value).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.paymentCheckout(data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+    }
+  }
+
+  paymentCheckout(data: any): void {
     var options = {
       key: 'rzp_test_alc9PznICVvKQb',
       amount: data.transaction.amount,

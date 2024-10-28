@@ -13,7 +13,7 @@ const formValidation = Yup.object().shape({
   expiryDate: Yup.date().required("Expiry Date is required").min(new Date(), "Expiry date must be in the future"),
 });
 
-const AddCoupon = ({ openModal, close }: any) => {
+const AddCoupon = ({ openModal, close,getCoupons }: any) => {
   const [showModal, setShowModal] = useState(openModal);
 
   const initialCouponValues = {
@@ -33,6 +33,7 @@ const AddCoupon = ({ openModal, close }: any) => {
       if (res.status === 200) {
         toast.success("Coupon Added Successfully");
         resetForm();
+        getCoupons()
       }
     } catch (error) {
       console.log(error);

@@ -18,5 +18,13 @@ export class BookingService {
   getAllBookingOfUser(id: number): Observable<any> {
     return this.http.get(this.apiUrl + '/users/' + id);
   }
-  
+
+  getCouponDetails(coupon:string):Observable<any>{
+    return this.http.get(environment.baseUrl+"/coupon/code/"+coupon);
+  }
+
+  getVehicleById(id:any):Observable<any>{
+    return this.http.get(environment.baseUrl+"/vehicle/"+id);
+  }
+
 }

@@ -145,7 +145,7 @@ const Coupons = () => {
           </table>
         )}
       </div>
-      {showModal && <AddCoupon openModal={showModal} close={closeModal} />}
+      {showModal && <AddCoupon openModal={showModal} close={closeModal} getCoupons={getAllCoupons}/>}
     </div>
   );
 };
