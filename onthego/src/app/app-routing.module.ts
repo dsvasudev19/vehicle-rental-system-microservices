@@ -14,17 +14,21 @@ import { ResetPasswordComponent } from './authentication/reset-password/reset-pa
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: '',component: HomeComponent,},
-  {path: 'vehicle-listing',component: VehicleListingComponent,canActivate:[AuthGuard]},
-  {path:'details/:id',component:VehicleDetailsComponent},
-  {path: 'vehicle-details/:id',component: VehicleDetailsComponent,},
-  {path: 'user-profile',component: UserProfileComponent,},
-  {path: 'auth/login',component: LoginComponent},
-  {path:'auth/register',component:RegisterComponent},
-  {path:'auth/forgot-password',component:ForgotPasswordComponent},
-  {path:'auth/reset-password',component:ResetPasswordComponent},
-  {path:'view-details/:id',component:ViewDetailsComponent},
-  {path:'checkout',component:CheckoutComponent}
+  { path: '', component: HomeComponent },
+  {
+    path: 'vehicle-listing',
+    component: VehicleListingComponent,
+    // ,canActivate:[AuthGuard]
+  },
+  { path: 'details/:id', component: VehicleDetailsComponent },
+  { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
+  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/register', component: RegisterComponent },
+  { path: 'auth/forgot-password', component: ForgotPasswordComponent },
+  { path: 'auth/reset-password', component: ResetPasswordComponent },
+  { path: 'view-details/:id', component: ViewDetailsComponent },
+  { path: 'checkout', component: CheckoutComponent },
 ];
 
 @NgModule({

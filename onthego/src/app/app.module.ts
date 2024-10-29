@@ -13,6 +13,7 @@ import { VehicleModule } from './vehicle/vehicle.module';
 import { RouterModule } from '@angular/router';
 import { BookingModule } from './booking/booking.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { StoreModule } from '@ngrx/store';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,7 +26,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     UserModule,
     VehicleModule,
     RouterModule,
-    BookingModule
+    BookingModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [
     provideClientHydration(),
