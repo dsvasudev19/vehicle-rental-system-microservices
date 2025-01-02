@@ -1,8 +1,11 @@
 package com.project.vendor_service.controllers;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.naming.java.javaURLContextFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.vendor_service.feign.AuthClient;
 import com.project.vendor_service.feign.VehicleClient;
+import com.project.vendor_service.models.RolePojo;
+import com.project.vendor_service.models.UserCredentialPojo;
 import com.project.vendor_service.models.VehiclePojo;
 import com.project.vendor_service.models.VendorPojo;
 import com.project.vendor_service.models.VendorWrapper;
@@ -34,6 +40,9 @@ public class VendorController {
 
 	@Autowired
 	private VehicleClient vehicleClient;
+	
+	@Autowired
+	private AuthClient authClient;
 
 	@GetMapping("/greet")
 	public String greet() {
@@ -96,7 +105,20 @@ public class VendorController {
 			return new ResponseEntity<>(Map.entry("message", "Vendor Already Exists with the given mail"),
 					HttpStatus.OK);
 		}
-		return new ResponseEntity<>(vendorService.addVendor(vendorPojo), HttpStatus.OK);
+		VendorPojo vendor=vendorService.addVendor(vendorPojo);
+		//Registering Vendor in AuthService to Enable them to login to the Dashboard,
+		RolePojo rolePojo=new RolePojo();
+		if(vendor!=null) {
+			UserCredentialPojo vendorCredentialPojo=new UserCredentialPojo();
+			rolePojo.setName("VENDOR");
+			vendorCredentialPojo.setUsername(vendorPojo.getEmail());
+			vendorCredentialPojo.setPassword(vendorPojo.getPassword());
+			vendorCredentialPojo.setRoles(Collections.singletonList(rolePojo));
+			authClient.registerNewUser(vendorCredentialPojo);
+			return new ResponseEntity<>(vendor, HttpStatus.OK);
+		}
+		return ResponseEntity.badRequest().build();
+		
 	}
 
 	@PutMapping("/{id}")

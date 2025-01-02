@@ -1,8 +1,10 @@
 package com.project.user_service.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.user_service.ipc.AuthClient;
 import com.project.user_service.ipc.BookingClient;
 import com.project.user_service.model.BookingPojo;
+import com.project.user_service.model.RolePojo;
 import com.project.user_service.model.UserCredentialPojo;
 import com.project.user_service.model.UserPojo;
 import com.project.user_service.service.UserService;
@@ -66,9 +69,12 @@ public class UserController {
 		boolean userExists = userService.checkIfUserExists(userPojo.getEmail());
 		if (!userExists) {
 			UserPojo userP = userService.addUser(userPojo);
+			RolePojo rolePojo=new RolePojo();
+			rolePojo.setName("USER");
 			UserCredentialPojo pojo = new UserCredentialPojo();
 			pojo.setUsername(userPojo.getEmail());
 			pojo.setPassword(userPojo.getEmail());
+			pojo.setRoles(Collections.singletonList(rolePojo));
 			if (userP != null) {
 				UserCredentialPojo userCredentialPojo = authClient.registerNewUser(pojo);
 			}

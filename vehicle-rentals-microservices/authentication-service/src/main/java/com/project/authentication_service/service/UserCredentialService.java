@@ -31,7 +31,7 @@ public class UserCredentialService {
 
 	@Autowired
 	private JwtService jwtService;
-	
+
 	@Autowired
 	private MailClient mailClient;
 
@@ -47,13 +47,15 @@ public class UserCredentialService {
 	public UserCredentialPojo registerNewUser(UserCredentialPojo userCredential) {
 		UserCredential user = new UserCredential();
 		BeanUtils.copyProperties(userCredential, user);
-//		List<RolePojo> rolesPojo = userCredential.getRoles();
-//		List<Role> roles = rolesPojo.stream().map(rolePojo -> {
-//			Role role = new Role();
-//			BeanUtils.copyProperties(rolePojo, role);
-//			return role;
-//		}).collect(Collectors.toList());
-//		user.setRoles(roles);
+		List<RolePojo> rolesPojo = userCredential.getRoles();
+		if (rolesPojo != null && rolesPojo.size() > 0) {
+			List<Role> roles = rolesPojo.stream().map(rolePojo -> {
+				Role role = new Role();
+				BeanUtils.copyProperties(rolePojo, role);
+				return role;
+			}).collect(Collectors.toList());
+			user.setRoles(roles);
+		}
 		userRepository.save(user);
 		user.setPassword(null);
 		UserCredentialPojo pojo = new UserCredentialPojo();
@@ -74,19 +76,22 @@ public class UserCredentialService {
 	public ForgotPasswordTokenPojo generateForgotPasswordToken(String username) {
 		Optional<UserCredential> userCredential = userRepository.findByUsername(username);
 		if (userCredential.isPresent()) {
+			// generating a random volatile token for a user
 			String token = UUID.randomUUID().toString();
 			ForgotPasswordToken forgotPasswordToken = new ForgotPasswordToken();
 			forgotPasswordToken.setUsername(username);
 			forgotPasswordToken.setToken(token);
 			forgotPasswordToken.setExpiryDate(LocalDate.now().plusDays(1));
-			ForgotPasswordToken token2=tokenRepository.save(forgotPasswordToken);
+			// storing that token to verify the user while resetting password
+			ForgotPasswordToken token2 = tokenRepository.save(forgotPasswordToken);
 			ForgotPasswordTokenPojo pojo = new ForgotPasswordTokenPojo();
 			BeanUtils.copyProperties(forgotPasswordToken, pojo);
-			JavaMailMessagePojo mailMessagePojo=new JavaMailMessagePojo();
+			JavaMailMessagePojo mailMessagePojo = new JavaMailMessagePojo();
 			mailMessagePojo.setTo(username);
 			mailMessagePojo.setSubject("Account Recovery");
-			mailMessagePojo.setBody("Use this link for the account recovery. http://localhost:5173/auth/reset-password?token="+token);
-			//Uncomment this in Production
+			mailMessagePojo.setBody(
+					"Use this link for the account recovery. http://localhost:5173/auth/reset-password?token=" + token);
+			// Uncomment this in Production
 //			mailClient.sendMailMessage(mailMessagePojo);
 			return pojo;
 		}
@@ -107,7 +112,7 @@ public class UserCredentialService {
 	public boolean resetPassword(String token, ResetPassword resetPassword) {
 		String username = resetPassword.getUsername();
 		Optional<UserCredential> userCredentialPojo = userRepository.findByUsername(username);
-		Optional<ForgotPasswordToken> tokenOptional=tokenRepository.findByToken(token);
+		Optional<ForgotPasswordToken> tokenOptional = tokenRepository.findByToken(token);
 		if (userCredentialPojo.isPresent() && tokenOptional.isPresent()
 				&& LocalDate.now().isBefore(tokenOptional.get().getExpiryDate())) {
 			UserCredential userPojo = userCredentialPojo.get();
