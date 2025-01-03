@@ -1,0 +1,23 @@
+/* Global or Component CSS */
+@keyframes marquee {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .inline-block {
+    display: inline-block;
+  }
+  
+  h3 span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  h3:hover span {
+    animation: marquee 10s linear infinite;
+  }
+  

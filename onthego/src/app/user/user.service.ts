@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -6,4 +7,10 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   constructor() { }
+
+  private token=localStorage.getItem("__auth")
+
+  public headers=new HttpHeaders({
+    'Authorization':`Bearer ${this.token}`
+  })
 }

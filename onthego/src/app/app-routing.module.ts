@@ -22,13 +22,13 @@ const routes: Routes = [
   },
   { path: 'details/:id', component: VehicleDetailsComponent },
   { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
-  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'user-profile', component: UserProfileComponent,canActivate:[AuthGuard] },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'auth/forgot-password', component: ForgotPasswordComponent },
   { path: 'auth/reset-password', component: ResetPasswordComponent },
   { path: 'view-details/:id', component: ViewDetailsComponent },
-  { path: 'checkout', component: CheckoutComponent },
+  { path: 'checkout', component: CheckoutComponent,canActivate:[AuthGuard] },
 ];
 
 @NgModule({

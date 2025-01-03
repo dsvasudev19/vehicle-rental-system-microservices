@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit {
 
   vehicles:Vehicle[]=[];
 
+  
+
   constructor(private homeService:HomeService,private router:Router){}
 
   ngOnInit(): void {
